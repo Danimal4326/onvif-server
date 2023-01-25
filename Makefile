@@ -36,7 +36,7 @@ CLIENT_OBJ+=gen/soapEventBindingProxy.o gen/soapPullPointSubscriptionBindingProx
 CLIENT_OBJ+=gen/soapRecordingBindingProxy.o gen/soapReplayBindingProxy.o gen/soapReceiverBindingProxy.o gen/soapSearchBindingProxy.o 
 CLIENT_OBJ+=gen/soapDisplayBindingProxy.o
 
-all: gen/onvif.h libwsdd.a liblibv4l2rtspserver.a onvif-server.exe onvif-client.exe
+all: gen/onvif.h libwsdd.a liblibv4l2rtspserver.a onvif-server onvif-client
 
 gen/onvif.h: $(wildcard wsdl/*) 
 	mkdir -p gen
@@ -72,7 +72,7 @@ LIVE = v4l2rtspserver/live
 CXXFLAGS += -I ${LIVE}/groupsock/include -I ${LIVE}/liveMedia/include -I ${LIVE}/UsageEnvironment/include -I ${LIVE}/BasicUsageEnvironment/include
 CXXFLAGS += -I v4l2rtspserver/inc -I v4l2rtspserver/libv4l2cpp/inc
 
-onvif-server.exe: src/onvif-server.o src/onvif_impl.o $(WSSE_SRC) libserver.a libonvif.a gen/soapNotificationConsumerBindingProxy.o libwsdd.a liblibv4l2rtspserver.a v4l2rtspserver/libv4l2cpp/liblibv4l2cpp.a
+onvif-server: src/onvif-server.o src/onvif_impl.o $(WSSE_SRC) libserver.a libonvif.a gen/soapNotificationConsumerBindingProxy.o libwsdd.a liblibv4l2rtspserver.a v4l2rtspserver/libv4l2cpp/liblibv4l2cpp.a
 	$(CXX) -g -o $@ $^ $(CXXFLAGS) $(LDFLAGS)
 
 onvif-client.exe: src/onvif-client.o $(WSSE_SRC) $(GSOAP_PLUGINS)/wsaapi.c libclient.a gen/soapNotificationConsumerBindingService.o libonvif.a
@@ -81,9 +81,9 @@ onvif-client.exe: src/onvif-client.o $(WSSE_SRC) $(GSOAP_PLUGINS)/wsaapi.c libcl
 clean:
 	make -C v4l2rtspserver clean || :
 	make -C ws-discovery/gsoap clean || :
-	rm -rf gen src/*.o *.a *.exe
+	rm -rf gen src/*.o *.a *.exe onvif-server onvif-client
 
 install:
 	mkdir -p $(DESTDIR)
-	install -D -m 0755 onvif-server.exe $(DESTDIR)
-	install -D -m 0755 onvif-client.exe $(DESTDIR)
+	install -D -m 0755 onvif-server $(DESTDIR)
+	install -D -m 0755 onvif-client $(DESTDIR)
