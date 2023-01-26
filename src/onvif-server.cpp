@@ -49,6 +49,7 @@
 #include "onvif_impl.h"
 
 #include <yaml-cpp/yaml.h>
+#include <linux/videodev2.h>
 
 int http_get(struct soap *soap)
 {
@@ -175,7 +176,7 @@ int main(int argc, char* argv[])
 		std::string uri = device["rtsp_uri"].as<std::string>();
 		std::uint32_t width = device["width"].as<std::uint32_t>();
 		std::uint32_t height = device["height"].as<std::uint32_t>();
-		std::uint32_t pixformat = device["width"].as<std::uint32_t>();
+		std::string pixformat = device["width"].as<std::string>();
 
 		std::cout << "- Token: " << token << std::endl;
 		std::cout << "  Name: " << name << std::endl;
@@ -185,7 +186,17 @@ int main(int argc, char* argv[])
 		std::cout << "  Height: " << height << std::endl;
 		std::cout << "  Pixformat: " << pixformat << std::endl;
 
-		deviceCtx.m_devices[token] = (Device(name, port, uri, width, height, pixformat));
+		int format = V4L2_PIX_FMT_H264;
+		if(pixformat == "V4L2_PIX_FMT_H264")
+		{
+			format = V4L2_PIX_FMT_H264;
+		}
+		else if(pixformat == "V4L2_PIX_FMT_JPEG")
+		{
+			format = V4L2_PIX_FMT_JPEG;
+		}
+
+		deviceCtx.m_devices[token] = (Device(name, port, uri, width, height, format));
 	}
 
 	std::cout << std::endl;
