@@ -181,39 +181,16 @@ std::map<in_addr_t, in_addr_t> ServiceContext::getGateways()
 
 int ServiceContext::getFormat(const std::string &device, int &width, int &height, int &format)
 {
-	int ret = 0;
-	int fd = open(device.c_str(), O_RDWR | O_NONBLOCK, 0);
-
-	struct v4l2_format fmt;
-	memset(&fmt, 0, sizeof(fmt));
-	fmt.type = V4L2_BUF_TYPE_VIDEO_CAPTURE;
-	if (0 == ioctl(fd, VIDIOC_G_FMT, &fmt))
-	{
-		width = fmt.fmt.pix.width;
-		height = fmt.fmt.pix.height;
-		format = fmt.fmt.pix.pixelformat;
-		ret = 1;
-	}
-	close(fd);
-	return ret;
+	height = m_devices[device].m_height;
+	width = m_devices[device].m_width;
+	format = m_devices[device].m_pixformat;
+	return 1;
 }
 
 float ServiceContext::getFrameRate(const std::string &device)
 {
-	float fps = 0;
-        int fd = open(device.c_str(), O_RDWR | O_NONBLOCK, 0);
-
-        struct v4l2_streamparm param;
-        memset(&param, 0, sizeof(param));
-        param.type = V4L2_BUF_TYPE_VIDEO_CAPTURE;
-        if (0 == ioctl(fd, VIDIOC_G_PARM, &param))
-        {
-		if (param.parm.capture.timeperframe.numerator != 0) {
-                	fps = 1.0 * param.parm.capture.timeperframe.denominator / param.parm.capture.timeperframe.numerator;
-		}
-        }
-        close(fd);
-        return fps;
+	// TODO: implement this
+	return 1;
 }
 
 int ServiceContext::getCtrlValue(const std::string &device, int idctrl)
@@ -266,16 +243,7 @@ void ServiceContext::getIdentification(const std::string &device, std::string &c
 
 std::string ServiceContext::getName(const std::string &device)
 {
-	std::string name;
-	int fd = open(device.c_str(), O_RDWR | O_NONBLOCK, 0);
-	v4l2_capability cap;
-	memset(&cap, 0, sizeof(cap));
-	if (-1 != ioctl(fd, VIDIOC_QUERYCAP, &cap))
-	{
-		name = (const char *)cap.card;
-	}
-	close(fd);
-	return name;
+	return m_devices[device].m_name;
 }
 
 std::list<std::string> ServiceContext::getScopes()
@@ -341,7 +309,7 @@ tt__Profile *ServiceContext::getProfile(struct soap *soap, const std::string &to
 {
 	tt__Profile *profile = soap_new_tt__Profile(soap);
 	profile->token = token;
-	profile->Name = "zach's cam :)";
+	profile->Name = getName(token);
 	profile->VideoSourceConfiguration = getVideoSourceCfg(soap, token);
 	profile->VideoEncoderConfiguration = getVideoEncoderCfg(soap, token);
 	profile->VideoAnalyticsConfiguration = soap_new_tt__VideoAnalyticsConfiguration(soap);

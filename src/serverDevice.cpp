@@ -633,11 +633,14 @@ int DeviceBindingService::GetNetworkProtocols(_tds__GetNetworkProtocols *tds__Ge
 	tds__GetNetworkProtocolsResponse.NetworkProtocols.back()->Enabled = true;
 	tds__GetNetworkProtocolsResponse.NetworkProtocols.back()->Port.push_back(ctx->m_port);
 
-	// TODO: push back all ports used for RTSP here
-	// tds__GetNetworkProtocolsResponse.NetworkProtocols.push_back(soap_new_tt__NetworkProtocol(soap));
-	// tds__GetNetworkProtocolsResponse.NetworkProtocols.back()->Name = tt__NetworkProtocolType__RTSP;
-	// tds__GetNetworkProtocolsResponse.NetworkProtocols.back()->Enabled = true;
-	// tds__GetNetworkProtocolsResponse.NetworkProtocols.back()->Port.push_back(ctx->m_rtspport);
+	for(auto device : ctx->m_devices)
+	{
+		tds__GetNetworkProtocolsResponse.NetworkProtocols.push_back(soap_new_tt__NetworkProtocol(soap));
+		tds__GetNetworkProtocolsResponse.NetworkProtocols.back()->Name = tt__NetworkProtocolType__RTSP;
+		tds__GetNetworkProtocolsResponse.NetworkProtocols.back()->Enabled = true;
+		tds__GetNetworkProtocolsResponse.NetworkProtocols.back()->Port.push_back(device.second.m_rtsp_port);
+	}
+
 	return SOAP_OK;
 }
 

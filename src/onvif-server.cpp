@@ -169,15 +169,26 @@ int main(int argc, char* argv[])
 
 	for(auto device : server["devices"])
 	{
+		std::string token = device["token"].as<std::string>();
 		std::string name = device["name"].as<std::string>();
 		std::uint16_t port = device["rtsp_port"].as<std::int16_t>();
 		std::string uri = device["rtsp_uri"].as<std::string>();
+		std::uint32_t width = device["width"].as<std::uint32_t>();
+		std::uint32_t height = device["height"].as<std::uint32_t>();
+		std::uint32_t pixformat = device["width"].as<std::uint32_t>();
 
-		std::cout << "- Name: " << name << std::endl;
+		std::cout << "- Token: " << token << std::endl;
+		std::cout << "  Name: " << name << std::endl;
 		std::cout << "  Port: " << port << std::endl;
-		std::cout << "  URI: "  << uri << std::endl;
-		deviceCtx.m_devices[name] = (Device(name, port, uri));
+		std::cout << "  URI: " << uri << std::endl;
+		std::cout << "  Width: " << width << std::endl;
+		std::cout << "  Height: " << height << std::endl;
+		std::cout << "  Pixformat: " << pixformat << std::endl;
+
+		deviceCtx.m_devices[token] = (Device(name, port, uri, width, height, pixformat));
 	}
+
+	std::cout << std::endl;
 
 	const time_t timestamp = time(NULL);
 	struct tm * localtm = localtime(&timestamp);

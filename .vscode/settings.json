@@ -59,6 +59,20 @@
         "config.h": "c",
         "parser.h": "c",
         "onvif_impl.h": "c",
-        "set": "cpp"
+        "set": "cpp",
+        "cstring": "cpp",
+        "strstream": "cpp",
+        "bitset": "cpp",
+        "complex": "cpp",
+        "condition_variable": "cpp",
+        "forward_list": "cpp",
+        "unordered_set": "cpp",
+        "optional": "cpp",
+        "fstream": "cpp",
+        "mutex": "cpp",
+        "shared_mutex": "cpp",
+        "cfenv": "cpp",
+        "typeindex": "cpp",
+        "variant": "cpp"
     }
 }

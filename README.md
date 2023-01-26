@@ -9,8 +9,10 @@ server:
   http_port: 80
   devices:
   - name: camera0
+    rtsp_port: 9000
     rtsp_uri: rtsp://localhost:9000
   - name: camera1
+    rtsp_port: 9001
     rtsp_uri: rtsp://localhost:9001
 ```
 

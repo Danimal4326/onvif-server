@@ -40,11 +40,19 @@ class Device
 {
 	public:
 		Device() {}
-		Device(const std::string &name, uint16_t rtsp_port, const std::string &rtsp_url) 
-		 : m_name(name), m_rtsp_port(rtsp_port), m_rtsp_url(rtsp_url) {}
+		Device(const std::string &name, uint16_t rtsp_port, const std::string &rtsp_url, uint32_t width, uint32_t height, uint32_t pixformat) 
+		 : m_name(name), 
+		   m_rtsp_port(rtsp_port), 
+		   m_rtsp_url(rtsp_url),
+		   m_width(width),
+		   m_height(height),
+		   m_pixformat(pixformat) {}
 		std::string m_name;
 		uint16_t m_rtsp_port;
 		std::string m_rtsp_url;
+		uint32_t m_width;
+		uint32_t m_height;
+		uint32_t m_pixformat;
 };
 
 class ServiceContext
