@@ -176,13 +176,14 @@ int DeviceBindingService::GetDeviceInformation(_tds__GetDeviceInformation *tds__
 {
 	std::cout << __FUNCTION__ << std::endl;
 	ServiceContext* ctx = (ServiceContext*)this->soap->user;
-	struct utsname info;	
-	if (uname(&info) == 0) {
+	struct utsname info;
 		tds__GetDeviceInformationResponse.Manufacturer    = info.release;
 		tds__GetDeviceInformationResponse.Model           = info.sysname;
 		tds__GetDeviceInformationResponse.HardwareId      = info.machine;
 		tds__GetDeviceInformationResponse.FirmwareVersion = VERSION;
 		tds__GetDeviceInformationResponse.SerialNumber    = info.version;
+	if (uname(&info) == 0) {
+		
 	}	
 	return SOAP_OK;
 }
@@ -456,7 +457,9 @@ int DeviceBindingService::GetCapabilities(_tds__GetCapabilities *tds__GetCapabil
 			tds__GetCapabilitiesResponse.Capabilities->Extension->Display->FixedLayout = true;
 			tds__GetCapabilitiesResponse.Capabilities->Extension->DeviceIO = soap_new_tt__DeviceIOCapabilities(this->soap);
 			tds__GetCapabilitiesResponse.Capabilities->Extension->DeviceIO->XAddr = url;
-			tds__GetCapabilitiesResponse.Capabilities->Extension->DeviceIO->VideoSources = ctx->m_devices.size();
+			// TODO: add number of video sources published
+			// len(devices)
+			// tds__GetCapabilitiesResponse.Capabilities->Extension->DeviceIO->VideoSources = ctx->m_devices.size();
 			tds__GetCapabilitiesResponse.Capabilities->Extension->DeviceIO->VideoOutputs = 1;
 		}
 	}
@@ -630,10 +633,11 @@ int DeviceBindingService::GetNetworkProtocols(_tds__GetNetworkProtocols *tds__Ge
 	tds__GetNetworkProtocolsResponse.NetworkProtocols.back()->Enabled = true;
 	tds__GetNetworkProtocolsResponse.NetworkProtocols.back()->Port.push_back(ctx->m_port);
 
-	tds__GetNetworkProtocolsResponse.NetworkProtocols.push_back(soap_new_tt__NetworkProtocol(soap));
-	tds__GetNetworkProtocolsResponse.NetworkProtocols.back()->Name = tt__NetworkProtocolType__RTSP;
-	tds__GetNetworkProtocolsResponse.NetworkProtocols.back()->Enabled = true;
-	tds__GetNetworkProtocolsResponse.NetworkProtocols.back()->Port.push_back(ctx->m_rtspport);
+	// TODO: push back all ports used for RTSP here
+	// tds__GetNetworkProtocolsResponse.NetworkProtocols.push_back(soap_new_tt__NetworkProtocol(soap));
+	// tds__GetNetworkProtocolsResponse.NetworkProtocols.back()->Name = tt__NetworkProtocolType__RTSP;
+	// tds__GetNetworkProtocolsResponse.NetworkProtocols.back()->Enabled = true;
+	// tds__GetNetworkProtocolsResponse.NetworkProtocols.back()->Port.push_back(ctx->m_rtspport);
 	return SOAP_OK;
 }
 

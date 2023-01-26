@@ -125,14 +125,15 @@ int PTZBindingService::GotoHomePosition(_tptz__GotoHomePosition *tptz__GotoHomeP
 	std::cout << __FUNCTION__ << std::endl;
 	ServiceContext* ctx = (ServiceContext*)this->soap->user;
 	
-	int ret = SOAP_FAULT;		
-	auto it = ctx->m_devices.find(tptz__GotoHomePosition->ProfileToken);
-	if (it != ctx->m_devices.end())
-	{	
-		ctx->setCtrlValue(it->first, V4L2_CID_PAN_RESET, 1);
-		ctx->setCtrlValue(it->first, V4L2_CID_TILT_RESET, 1);
-		ret = SOAP_OK;	
-	}
+	int ret = SOAP_FAULT;
+	// TODO: send to appropriate pi based on profile
+	// auto it = ctx->m_devices.find(tptz__GotoHomePosition->ProfileToken);
+	// if (it != ctx->m_devices.end())
+	// {	
+	// 	ctx->setCtrlValue(it->first, V4L2_CID_PAN_RESET, 1);
+	// 	ctx->setCtrlValue(it->first, V4L2_CID_TILT_RESET, 1);
+	// 	ret = SOAP_OK;	
+	// }
 	
 	return ret;
 }
@@ -159,15 +160,16 @@ int PTZBindingService::RelativeMove(_tptz__RelativeMove *tptz__RelativeMove, _tp
 	std::cout << __FUNCTION__ << std::endl;
 	ServiceContext* ctx = (ServiceContext*)this->soap->user;
 	
-	int ret = SOAP_FAULT;		
-	auto it = ctx->m_devices.find(tptz__RelativeMove->ProfileToken);
-	if (it != ctx->m_devices.end())
-	{	
-		ctx->setCtrlValue(it->first, V4L2_CID_PAN_RELATIVE , tptz__RelativeMove->Translation->PanTilt->x);
-		ctx->setCtrlValue(it->first, V4L2_CID_TILT_RELATIVE, tptz__RelativeMove->Translation->PanTilt->y);
-		ctx->setCtrlValue(it->first, V4L2_CID_ZOOM_RELATIVE, tptz__RelativeMove->Translation->Zoom->x);
-		ret = SOAP_OK;	
-	}
+	int ret = SOAP_FAULT;
+	// TODO: send to appropriate pi based on profile
+	// auto it = ctx->m_devices.find(tptz__RelativeMove->ProfileToken);
+	// if (it != ctx->m_devices.end())
+	// {	
+	// 	ctx->setCtrlValue(it->first, V4L2_CID_PAN_RELATIVE , tptz__RelativeMove->Translation->PanTilt->x);
+	// 	ctx->setCtrlValue(it->first, V4L2_CID_TILT_RELATIVE, tptz__RelativeMove->Translation->PanTilt->y);
+	// 	ctx->setCtrlValue(it->first, V4L2_CID_ZOOM_RELATIVE, tptz__RelativeMove->Translation->Zoom->x);
+	// 	ret = SOAP_OK;	
+	// }
 	
 	return ret;
 }
@@ -186,15 +188,16 @@ int PTZBindingService::AbsoluteMove(_tptz__AbsoluteMove *tptz__AbsoluteMove, _tp
 	std::cout << __FUNCTION__ << std::endl;
 	ServiceContext* ctx = (ServiceContext*)this->soap->user;
 
-	int ret = SOAP_FAULT;		
-	auto it = ctx->m_devices.find(tptz__AbsoluteMove->ProfileToken);
-	if (it != ctx->m_devices.end())
-	{	
-		ctx->setCtrlValue(it->first, V4L2_CID_PAN_ABSOLUTE , tptz__AbsoluteMove->Position->PanTilt->x);
-		ctx->setCtrlValue(it->first, V4L2_CID_TILT_ABSOLUTE, tptz__AbsoluteMove->Position->PanTilt->y);
-		ctx->setCtrlValue(it->first, V4L2_CID_ZOOM_ABSOLUTE, tptz__AbsoluteMove->Position->Zoom->x);
-		ret = SOAP_OK;	
-	}
+	int ret = SOAP_FAULT;
+	// TODO: send to appropriate pi based on profile	
+	// auto it = ctx->m_devices.find(tptz__AbsoluteMove->ProfileToken);
+	// if (it != ctx->m_devices.end())
+	// {	
+	// 	ctx->setCtrlValue(it->first, V4L2_CID_PAN_ABSOLUTE , tptz__AbsoluteMove->Position->PanTilt->x);
+	// 	ctx->setCtrlValue(it->first, V4L2_CID_TILT_ABSOLUTE, tptz__AbsoluteMove->Position->PanTilt->y);
+	// 	ctx->setCtrlValue(it->first, V4L2_CID_ZOOM_ABSOLUTE, tptz__AbsoluteMove->Position->Zoom->x);
+	// 	ret = SOAP_OK;	
+	// }
 	
 	return ret;
 }

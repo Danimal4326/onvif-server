@@ -35,7 +35,7 @@ int DisplayBindingService::GetLayout(_tls__GetLayout *tls__GetLayout, _tls__GetL
 	ServiceContext* ctx = (ServiceContext*)this->soap->user;
 	tls__GetLayoutResponse.Layout = soap_new_tt__Layout(this->soap);
 	tls__GetLayoutResponse.Layout->PaneLayout.push_back(soap_new_tt__PaneLayout(this->soap));
-	tls__GetLayoutResponse.Layout->PaneLayout.back()->Pane = ctx->m_outdevice;
+	// tls__GetLayoutResponse.Layout->PaneLayout.back()->Pane = ctx->m_outdevice;
 	tls__GetLayoutResponse.Layout->PaneLayout.back()->Area = soap_new_tt__Rectangle(this->soap);
 	return SOAP_OK;
 }

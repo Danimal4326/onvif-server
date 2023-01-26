@@ -36,6 +36,17 @@ class User
 		enum tt__UserLevel m_profile;
 };
 
+class Device
+{
+	public:
+		Device() {}
+		Device(const std::string &name, uint16_t rtsp_port, const std::string &rtsp_url) 
+		 : m_name(name), m_rtsp_port(rtsp_port), m_rtsp_url(rtsp_url) {}
+		std::string m_name;
+		uint16_t m_rtsp_port;
+		std::string m_rtsp_url;
+};
+
 class ServiceContext
 {
 public:
@@ -85,11 +96,9 @@ public:
 	tt__TrackConfiguration*        getTracksCfg(struct soap* soap);
 	
 public:
-	std::map<std::string,std::string> m_devices;
-	std::string m_outdevice;
 	int         m_port;
-	int         m_rtspport;
-	std::map<std::string, User> m_userList;
+	std::map<std::string, Device> m_devices; // device name: device
+	std::map<std::string, User> m_userList;  // username: user
 	std::list<NotificationConsumerBindingProxy*> m_subscriber;
 	std::string m_timezone;
 	int         m_isdst;

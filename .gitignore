@@ -1,6 +1,8 @@
+.vscode/**
 gen/
 *.exe
 *.o
 *.a
 onvif-server
 onvif-client
+config.yaml

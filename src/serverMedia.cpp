@@ -36,16 +36,17 @@ int MediaBindingService::GetVideoSources(_trt__GetVideoSources *trt__GetVideoSou
 	int width;
 	int height;
 	int format;
-	for (auto it: ctx->m_devices) 
-	{
-		if (ctx->getFormat(it.first.c_str(), width, height, format))
-		{
-			trt__GetVideoSourcesResponse.VideoSources.push_back(soap_new_tt__VideoSource(this->soap));
-			trt__GetVideoSourcesResponse.VideoSources.back()->token = it.first;
-			trt__GetVideoSourcesResponse.VideoSources.back()->Resolution = soap_new_req_tt__VideoResolution(this->soap, width, height);
-			trt__GetVideoSourcesResponse.VideoSources.back()->Imaging = soap_new_tt__ImagingSettings(this->soap);		
-		}
-	}
+	// TODO: implement this
+	// for (auto it: ctx->m_devices) 
+	// {
+	// 	if (ctx->getFormat(it.first.c_str(), width, height, format))
+	// 	{
+	// 		trt__GetVideoSourcesResponse.VideoSources.push_back(soap_new_tt__VideoSource(this->soap));
+	// 		trt__GetVideoSourcesResponse.VideoSources.back()->token = it.first;
+	// 		trt__GetVideoSourcesResponse.VideoSources.back()->Resolution = soap_new_req_tt__VideoResolution(this->soap, width, height);
+	// 		trt__GetVideoSourcesResponse.VideoSources.back()->Imaging = soap_new_tt__ImagingSettings(this->soap);		
+	// 	}
+	// }
 	
 	return SOAP_OK;
 }
@@ -76,12 +77,13 @@ int MediaBindingService::GetProfile(_trt__GetProfile *trt__GetProfile, _trt__Get
 	
 	std::cout << __FUNCTION__ << " search for profile:" << trt__GetProfile->ProfileToken << std::endl;
 
-	auto it = ctx->m_devices.find(trt__GetProfile->ProfileToken);
-	if (it != ctx->m_devices.end())
-	{
-		trt__GetProfileResponse.Profile = ctx->getProfile(this->soap, it->first);
-		ret = SOAP_OK;
-	}
+	// TODO: implement this
+	// auto it = ctx->m_devices.find(trt__GetProfile->ProfileToken);
+	// if (it != ctx->m_devices.end())
+	// {
+	// 	trt__GetProfileResponse.Profile = ctx->getProfile(this->soap, it->first);
+	// 	ret = SOAP_OK;
+	// }
 	
 	return ret;
 }
@@ -90,7 +92,7 @@ int MediaBindingService::GetProfiles(_trt__GetProfiles *trt__GetProfiles, _trt__
 {
 	std::cout << __FUNCTION__ << std::endl;	
 	ServiceContext* ctx = (ServiceContext*)this->soap->user;
-	
+
 	for (auto it: ctx->m_devices) 
 	{
 		trt__GetProfilesResponse.Profiles.push_back(ctx->getProfile(this->soap, it.first));
@@ -218,10 +220,11 @@ int MediaBindingService::GetVideoSourceConfigurations(_trt__GetVideoSourceConfig
 	std::cout << __FUNCTION__ << std::endl;
 	ServiceContext* ctx = (ServiceContext*)this->soap->user;
 	
-	for (auto it: ctx->m_devices) 
-	{	
-		trt__GetVideoSourceConfigurationsResponse.Configurations.push_back(ctx->getVideoSourceCfg(this->soap, it.first));
-	}
+	// TODO: implement this
+	// for (auto it: ctx->m_devices) 
+	// {	
+	// 	trt__GetVideoSourceConfigurationsResponse.Configurations.push_back(ctx->getVideoSourceCfg(this->soap, it.first));
+	// }
 	return SOAP_OK;
 }
 
@@ -230,10 +233,11 @@ int MediaBindingService::GetVideoEncoderConfigurations(_trt__GetVideoEncoderConf
 	std::cout << __FUNCTION__ << std::endl;
 	ServiceContext* ctx = (ServiceContext*)this->soap->user;
 	
-	for (auto it: ctx->m_devices) 
-	{	
-		trt__GetVideoEncoderConfigurationsResponse.Configurations.push_back(ctx->getVideoEncoderCfg(this->soap, it.first));
-	}
+	// TODO: implement this
+	// for (auto it: ctx->m_devices) 
+	// {	
+	// 	trt__GetVideoEncoderConfigurationsResponse.Configurations.push_back(ctx->getVideoEncoderCfg(this->soap, it.first));
+	// }
 	
 	return SOAP_OK;
 }
@@ -279,11 +283,12 @@ int MediaBindingService::GetVideoSourceConfiguration(_trt__GetVideoSourceConfigu
 	std::cout << __FUNCTION__ << std::endl;
 	ServiceContext* ctx = (ServiceContext*)this->soap->user;
 	
-	auto it = ctx->m_devices.find(trt__GetVideoSourceConfiguration->ConfigurationToken);
-	if (it != ctx->m_devices.end())
-	{
-		trt__GetVideoSourceConfigurationResponse.Configuration = ctx->getVideoSourceCfg(this->soap, it->first);
-	}
+	// TODO: implement this
+	// auto it = ctx->m_devices.find(trt__GetVideoSourceConfiguration->ConfigurationToken);
+	// if (it != ctx->m_devices.end())
+	// {
+	// 	trt__GetVideoSourceConfigurationResponse.Configuration = ctx->getVideoSourceCfg(this->soap, it->first);
+	// }
 	
 	return SOAP_OK;
 }
@@ -292,12 +297,13 @@ int MediaBindingService::GetVideoEncoderConfiguration(_trt__GetVideoEncoderConfi
 {
 	std::cout << __FUNCTION__ << std::endl;
 	ServiceContext* ctx = (ServiceContext*)this->soap->user;
-	
-	auto it = ctx->m_devices.find(trt__GetVideoEncoderConfiguration->ConfigurationToken);
-	if (it != ctx->m_devices.end())
-	{
-		trt__GetVideoEncoderConfigurationResponse.Configuration = ctx->getVideoEncoderCfg(this->soap, it->first);	
-	}
+
+	// TODO: implement this	
+	// auto it = ctx->m_devices.find(trt__GetVideoEncoderConfiguration->ConfigurationToken);
+	// if (it != ctx->m_devices.end())
+	// {
+	// 	trt__GetVideoEncoderConfigurationResponse.Configuration = ctx->getVideoEncoderCfg(this->soap, it->first);	
+	// }
 	
 	return SOAP_OK;
 }
@@ -342,12 +348,13 @@ int MediaBindingService::GetCompatibleVideoEncoderConfigurations(_trt__GetCompat
 {
 	std::cout << __FUNCTION__ << std::endl;
 	ServiceContext* ctx = (ServiceContext*)this->soap->user;
-	
-	auto it = ctx->m_devices.find(trt__GetCompatibleVideoEncoderConfigurations->ProfileToken);
-	if (it != ctx->m_devices.end())
-	{
-		trt__GetCompatibleVideoEncoderConfigurationsResponse.Configurations.push_back(ctx->getVideoEncoderCfg(this->soap, it->first));
-	}
+
+	// TODO: implement this	
+	// auto it = ctx->m_devices.find(trt__GetCompatibleVideoEncoderConfigurations->ProfileToken);
+	// if (it != ctx->m_devices.end())
+	// {
+	// 	trt__GetCompatibleVideoEncoderConfigurationsResponse.Configurations.push_back(ctx->getVideoEncoderCfg(this->soap, it->first));
+	// }
 	
 	return SOAP_OK;
 }
@@ -356,12 +363,13 @@ int MediaBindingService::GetCompatibleVideoSourceConfigurations(_trt__GetCompati
 {
 	std::cout << __FUNCTION__ << std::endl;
 	ServiceContext* ctx = (ServiceContext*)this->soap->user;
-	
-	auto it = ctx->m_devices.find(trt__GetCompatibleVideoSourceConfigurations->ProfileToken);
-	if (it != ctx->m_devices.end())
-	{
-		trt__GetCompatibleVideoSourceConfigurationsResponse.Configurations.push_back(ctx->getVideoSourceCfg(this->soap, it->first));
-	}
+
+	// TODO: implement this	
+	// auto it = ctx->m_devices.find(trt__GetCompatibleVideoSourceConfigurations->ProfileToken);
+	// if (it != ctx->m_devices.end())
+	// {
+	// 	trt__GetCompatibleVideoSourceConfigurationsResponse.Configurations.push_back(ctx->getVideoSourceCfg(this->soap, it->first));
+	// }
 	return SOAP_OK;
 }
 
@@ -456,11 +464,12 @@ int MediaBindingService::GetVideoSourceConfigurationOptions(_trt__GetVideoSource
 	
 	if (trt__GetVideoSourceConfigurationOptions->ConfigurationToken)
 	{
-		auto it = ctx->m_devices.find(trt__GetVideoSourceConfigurationOptions->ConfigurationToken->c_str());
-		if (it != ctx->m_devices.end())
-		{	
-			trt__GetVideoSourceConfigurationOptionsResponse.Options = ctx->getVideoSourceCfgOptions(soap, it->first);
-		}
+		// TODO: implement this
+		// auto it = ctx->m_devices.find(trt__GetVideoSourceConfigurationOptions->ConfigurationToken->c_str());
+		// if (it != ctx->m_devices.end())
+		// {	
+		// 	trt__GetVideoSourceConfigurationOptionsResponse.Options = ctx->getVideoSourceCfgOptions(soap, it->first);
+		// }
 	}
 	return SOAP_OK;
 }
@@ -472,11 +481,12 @@ int MediaBindingService::GetVideoEncoderConfigurationOptions(_trt__GetVideoEncod
 	
 	if (trt__GetVideoEncoderConfigurationOptions->ConfigurationToken)
 	{
-		auto it = ctx->m_devices.find(trt__GetVideoEncoderConfigurationOptions->ConfigurationToken->c_str());
-		if (it != ctx->m_devices.end())
-		{	
-			trt__GetVideoEncoderConfigurationOptionsResponse.Options = ctx->getVideoEncoderCfgOptions(soap, it->first);
-		}
+		// TODO: implement this
+		// auto it = ctx->m_devices.find(trt__GetVideoEncoderConfigurationOptions->ConfigurationToken->c_str());
+		// if (it != ctx->m_devices.end())
+		// {	
+		// 	trt__GetVideoEncoderConfigurationOptionsResponse.Options = ctx->getVideoEncoderCfgOptions(soap, it->first);
+		// }
 	}
 	
 	return SOAP_OK;
@@ -502,11 +512,12 @@ int MediaBindingService::GetMetadataConfigurationOptions(_trt__GetMetadataConfig
 	
 	if (trt__GetMetadataConfigurationOptions->ConfigurationToken)
 	{
-		auto it = ctx->m_devices.find(trt__GetMetadataConfigurationOptions->ConfigurationToken->c_str());
-		if (it != ctx->m_devices.end())
-		{	
-			trt__GetMetadataConfigurationOptionsResponse.Options = ctx->getMetadataCfgOptions(soap, it->first);
-		}
+		// TODO: implement this
+		// auto it = ctx->m_devices.find(trt__GetMetadataConfigurationOptions->ConfigurationToken->c_str());
+		// if (it != ctx->m_devices.end())
+		// {	
+		// 	trt__GetMetadataConfigurationOptionsResponse.Options = ctx->getMetadataCfgOptions(soap, it->first);
+		// }
 	}
 
 	return SOAP_OK;
@@ -540,12 +551,13 @@ int MediaBindingService::GetStreamUri(_trt__GetStreamUri *trt__GetStreamUri, _tr
 	if (trt__GetStreamUri != NULL)
 	{
 		std::cout << __FUNCTION__ << " search for profile:" << trt__GetStreamUri->ProfileToken << std::endl;
-		auto it = ctx->m_devices.find(trt__GetStreamUri->ProfileToken);
-		if (it != ctx->m_devices.end())
-		{
-			trt__GetStreamUriResponse.MediaUri->Uri.assign(it->second);
-			ret = SOAP_OK;
-		}
+		// TODO: implement this
+		// auto it = ctx->m_devices.find(trt__GetStreamUri->ProfileToken);
+		// if (it != ctx->m_devices.end())
+		// {
+		// 	trt__GetStreamUriResponse.MediaUri->Uri.assign(it->second);
+		// 	ret = SOAP_OK;
+		// }
 	}	
 	return ret;
 }
@@ -578,12 +590,13 @@ int MediaBindingService::GetSnapshotUri(_trt__GetSnapshotUri *trt__GetSnapshotUr
 	if (trt__GetSnapshotUri != NULL)
 	{
 		std::cout << __FUNCTION__ << " search for profile:" << trt__GetSnapshotUri->ProfileToken << std::endl;
-		auto it = ctx->m_devices.find(trt__GetSnapshotUri->ProfileToken);
-		if (it != ctx->m_devices.end())
-		{
-			trt__GetSnapshotUriResponse.MediaUri->Uri.assign(it->second);
-			ret = SOAP_OK;
-		}
+		// TODO: implement this
+		// auto it = ctx->m_devices.find(trt__GetSnapshotUri->ProfileToken);
+		// if (it != ctx->m_devices.end())
+		// {
+		// 	trt__GetSnapshotUriResponse.MediaUri->Uri.assign(it->second);
+		// 	ret = SOAP_OK;
+		// }
 	}	
 	return ret;
 }

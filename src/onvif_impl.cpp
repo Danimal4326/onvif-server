@@ -341,7 +341,7 @@ tt__Profile *ServiceContext::getProfile(struct soap *soap, const std::string &to
 {
 	tt__Profile *profile = soap_new_tt__Profile(soap);
 	profile->token = token;
-	profile->Name = getName(token);
+	profile->Name = "zach's cam :)";
 	profile->VideoSourceConfiguration = getVideoSourceCfg(soap, token);
 	profile->VideoEncoderConfiguration = getVideoEncoderCfg(soap, token);
 	profile->VideoAnalyticsConfiguration = soap_new_tt__VideoAnalyticsConfiguration(soap);

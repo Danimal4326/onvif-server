@@ -55,10 +55,11 @@ int DeviceIOBindingService::GetVideoSources(tmd__Get *tmd__GetVideoSources, tmd_
 	std::cout << __FUNCTION__ << std::endl;
 	ServiceContext* ctx = (ServiceContext*)this->soap->user;
 	
-	for (auto it: ctx->m_devices) 
-	{
-		tmd__GetVideoSourcesResponse.Token.push_back(it.first);
-	}
+	// TODO: should add identifier of devices to lits of tokens
+	// for (auto it: ctx->m_devices) 
+	// {
+	// 	tmd__GetVideoSourcesResponse.Token.push_back(it.first);
+	// }
 	
 	return SOAP_OK;
 }
@@ -67,10 +68,6 @@ int DeviceIOBindingService::GetVideoSources(tmd__Get *tmd__GetVideoSources, tmd_
 int DeviceIOBindingService::GetVideoOutputs(_tmd__GetVideoOutputs *tmd__GetVideoOutputs, _tmd__GetVideoOutputsResponse &tmd__GetVideoOutputsResponse) 
 {
 	std::cout << __FUNCTION__ << std::endl;
-	ServiceContext* ctx = (ServiceContext*)this->soap->user;
-	tmd__GetVideoOutputsResponse.VideoOutputs.push_back(soap_new_tt__VideoOutput(this->soap));
-	tmd__GetVideoOutputsResponse.VideoOutputs.back()->token = ctx->m_outdevice;	
-	
 	return SOAP_OK;
 }
 
@@ -80,11 +77,12 @@ int DeviceIOBindingService::GetVideoSourceConfiguration(_tmd__GetVideoSourceConf
 	std::cout << __FUNCTION__ << std::endl;
 	ServiceContext* ctx = (ServiceContext*)this->soap->user;
 	
-	auto it = ctx->m_devices.find(tmd__GetVideoSourceConfiguration->VideoSourceToken);
-	if (it != ctx->m_devices.end())
-	{
-		tmd__GetVideoSourceConfigurationResponse.VideoSourceConfiguration = ctx->getVideoSourceCfg(this->soap, it->first);
-	}
+	// TODO: should return configurations of each source
+	// auto it = ctx->m_devices.find(tmd__GetVideoSourceConfiguration->VideoSourceToken);
+	// if (it != ctx->m_devices.end())
+	// {
+	// 	tmd__GetVideoSourceConfigurationResponse.VideoSourceConfiguration = ctx->getVideoSourceCfg(this->soap, it->first);
+	// }
 	
 	return SOAP_OK;
 }

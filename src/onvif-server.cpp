@@ -46,14 +46,9 @@
 #include "wsseapi.h"
 #include "wsd-server.h"
 
-// v4l2rstp
-#include "logger.h"
-#include "V4l2Capture.h"
-#include "V4l2Output.h"
-#include "V4l2RTSPServer.h"
-
-
 #include "onvif_impl.h"
+
+#include <yaml-cpp/yaml.h>
 
 int http_get(struct soap *soap)
 {
@@ -113,50 +108,77 @@ int http_get(struct soap *soap)
 
 int main(int argc, char* argv[])
 {		
-	std::string outdevice = "/dev/video10";
 	std::string username;
-
-	std::string rtspport = "8554";
 	int httpport = 8080;
 	ServiceContext deviceCtx;
-	std::map<std::string, V4l2Capture*> deviceList;
+	std::string config_path;
+
+	// int c = 0;
+	// while ((c = getopt (argc, argv, "h" "u:p:" "H:" "c:")) != -1)
+	// {
+	// 	switch (c)
+	// 	{
+	// 		case 'H':	httpport  = atoi(optarg); break;
+	// 		case 'u':	username  = optarg; break;
+	// 		case 'p':	deviceCtx.m_userList[username] = User(optarg,tt__UserLevel__Administrator); break;
+	// 		case 'c':   config_path = optarg; break;
+	// 		case 'h':
+	// 			std::cout << argv[0] << " [-H http port] [-R rtsp port] [-u username] [-p password]" << std::endl;
+	// 			exit(0);
+	// 		break;
+	// 	}
+	// }
 
 	int c = 0;
-	while ((c = getopt (argc, argv, "h" "u:p:" "H:R:" "i:o:")) != -1)
+	while ((c = getopt(argc, argv, "h" "c:")) != -1)
 	{
-		switch (c)
+		switch(c)
 		{
-			case 'H':	httpport      = atoi(optarg); break;
-			case 'R':	rtspport      = optarg; break;
-
-			case 'u':	username  = optarg; break;
-			case 'p':	deviceCtx.m_userList[username] = User(optarg,tt__UserLevel__Administrator); break;
-			
-			case 'i':	deviceList[optarg] = NULL; break;
-			
-			case 'o':	outdevice = optarg; break;
-			
+			case 'c':
+				config_path = optarg;
+				break;
 			case 'h':
-				std::cout << argv[0] << " [-H http port] [-R rtsp port] [-u username] [-p password] [-i v4l2 input device] [-o v4l2 output device]" << std::endl;
+				std::cout << argv[0] << " [-c config]" << std::endl;
 				exit(0);
-			break;
 		}
 	}
-	if (deviceList.empty()) {
-		deviceList["/dev/video0"] = NULL;
+
+	// check if path is provided
+	if(config_path.length() == 0)
+	{
+		std::cerr << "Path to a config file for RTSP streams is required." << std::endl;
+		exit(0);
 	}
 
-	std::cout << "Http:" << httpport << " rtsp:" << rtspport << std::endl;
-		
-	std::string rtspurl;
-	rtspurl = "rtsp://" + deviceCtx.getLocalIp() + ":" + rtspport + "/";
-	for (auto & device : deviceList) {
-		std::string url = basename(device.first.c_str());
-		deviceCtx.m_devices.insert(std::pair<std::string,std::string>(device.first, rtspurl + url));
+	// open yaml file
+	YAML::Node config = YAML::LoadFile(config_path);
+	YAML::Node server = config["server"];
+	if(!server || server.Type() != YAML::NodeType::Map)
+	{
+		// bad bad bad
+		exit(0);
 	}
-	deviceCtx.m_port          = httpport;
-	deviceCtx.m_rtspport      = atoi(rtspport.c_str());
-	deviceCtx.m_outdevice     = outdevice;
+
+	std::cout << "Username:  " << server["username"].as<std::string>() << std::endl;
+	std::cout << "Password:  " << server["password"].as<std::string>() << std::endl;
+	deviceCtx.m_userList[server["username"].as<std::string>()] = User(server["password"].as<std::string>(), tt__UserLevel__Administrator);
+	
+	std::cout << "HTTP Port: " << server["http_port"].as<std::int16_t>() << std::endl;
+	deviceCtx.m_port = server["http_port"].as<std::int16_t>();
+	std::cout << "# Devices: " << server["devices"].size() << std::endl;
+
+	for(auto device : server["devices"])
+	{
+		std::string name = device["name"].as<std::string>();
+		std::uint16_t port = device["rtsp_port"].as<std::int16_t>();
+		std::string uri = device["rtsp_uri"].as<std::string>();
+
+		std::cout << "- Name: " << name << std::endl;
+		std::cout << "  Port: " << port << std::endl;
+		std::cout << "  URI: "  << uri << std::endl;
+		deviceCtx.m_devices[name] = (Device(name, port, uri));
+	}
+
 	const time_t timestamp = time(NULL);
 	struct tm * localtm = localtime(&timestamp);
 	deviceCtx.m_timezone     = localtm->tm_zone;
@@ -191,33 +213,6 @@ int main(int argc, char* argv[])
 				wsd_server(conf); 
 			});
 
-			// start RTSP
-			V4l2RTSPServer rtspServer(deviceCtx.m_rtspport);
-
-			for (auto & device : deviceList) {
-				std::list<unsigned int> videoformatList = {V4L2_PIX_FMT_H264, V4L2_PIX_FMT_MJPEG, V4L2_PIX_FMT_JPEG, 0 };
-				V4l2Output* out = NULL;
-				V4L2DeviceParameters inParam(device.first.c_str(), videoformatList, 0, 0, 0);
-				StreamReplicator* videoReplicator = rtspServer.CreateVideoReplicator(
-								inParam,
-								5, V4L2DeviceSource::CAPTURE_INTERNAL_THREAD, true,
-								"", IOTYPE_MMAP, out);
-
-				if (videoReplicator)
-				{
-					std::string url = basename(device.first.c_str());
-					std::cout << "add RTSP session url:" << url << std::endl;
-					rtspServer.AddUnicastSession(url, videoReplicator, NULL);
-				} else {
-					std::cout << "Fails to create Source for device:" << device.first << std::endl;
-				}
-			}
-
-			char rtspstop = 0; 
-			std::thread rtsp( [&rtspServer,&rtspstop] {
-				rtspServer.eventLoop(&rtspstop); 
-			});		
-
 			// SOAP services
 			while (soap_accept(soap) != SOAP_OK) 
 			{
@@ -231,8 +226,6 @@ int main(int argc, char* argv[])
 					std::cout << "Unknown service" << std::endl;				
 				}				
 			}
-			rtspstop = 1;
-			rtsp.join();
 
 			conf.m_stop = true;
 			wsdd.join();

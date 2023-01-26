@@ -12,9 +12,9 @@ GSOAP_BASE=$(GSOAP_PREFIX)/share/gsoap
 GSOAP_PLUGINS=$(GSOAP_BASE)/plugin
 
 CXXFLAGS+=-std=c++11 -g2 -I inc -I ws-discovery/gsoap/
-CXXFLAGS+=-I gen -I $(GSOAP_PREFIX)/include -I $(GSOAP_PLUGINS) 
+CXXFLAGS+=-I gen -I $(GSOAP_PREFIX)/include -I $(GSOAP_PLUGINS)
 CXXFLAGS+=-DWITH_OPENSSL -DSOAP_PURE_VIRTUAL -fpermissive -pthread -DVERSION=\"$(VERSION)\"
-LDFLAGS+=-L $(GSOAP_PREFIX)/lib/ -lgsoapssl++ -lz -pthread -lssl -lcrypto -ldl -static-libstdc++
+LDFLAGS+=-L $(GSOAP_PREFIX)/lib/ -lgsoapssl++ -lz -pthread -lssl -lcrypto -ldl -lyaml-cpp -static-libstdc++
 
 WSSE_SRC=$(GSOAP_PLUGINS)/wsseapi.c $(GSOAP_PLUGINS)/smdevp.c $(GSOAP_PLUGINS)/mecevp.c $(GSOAP_BASE)/custom/struct_timeval.c
 WSSE_OBJ=$(WSSE_SRC:%.c=%.o)
@@ -36,7 +36,7 @@ CLIENT_OBJ+=gen/soapEventBindingProxy.o gen/soapPullPointSubscriptionBindingProx
 CLIENT_OBJ+=gen/soapRecordingBindingProxy.o gen/soapReplayBindingProxy.o gen/soapReceiverBindingProxy.o gen/soapSearchBindingProxy.o 
 CLIENT_OBJ+=gen/soapDisplayBindingProxy.o
 
-all: gen/onvif.h libwsdd.a liblibv4l2rtspserver.a onvif-server onvif-client
+all: gen/onvif.h libwsdd.a onvif-server onvif-client
 
 gen/onvif.h: $(wildcard wsdl/*) 
 	mkdir -p gen
@@ -61,25 +61,13 @@ libwsdd.a:
 	make -C ws-discovery/gsoap libwsdd.a
 	cp ws-discovery/gsoap/libwsdd.a .
 
-# v4l2rtsp
-liblibv4l2rtspserver.a:
-	git submodule update --recursive --init v4l2rtspserver
-	cd v4l2rtspserver && cmake -DALSA=OFF . && make libv4l2rtspserver		
-	cp v4l2rtspserver/$@ .
-
-
-LIVE = v4l2rtspserver/live
-CXXFLAGS += -I ${LIVE}/groupsock/include -I ${LIVE}/liveMedia/include -I ${LIVE}/UsageEnvironment/include -I ${LIVE}/BasicUsageEnvironment/include
-CXXFLAGS += -I v4l2rtspserver/inc -I v4l2rtspserver/libv4l2cpp/inc
-
-onvif-server: src/onvif-server.o src/onvif_impl.o $(WSSE_SRC) libserver.a libonvif.a gen/soapNotificationConsumerBindingProxy.o libwsdd.a liblibv4l2rtspserver.a v4l2rtspserver/libv4l2cpp/liblibv4l2cpp.a
+onvif-server: src/onvif-server.o src/onvif_impl.o $(WSSE_SRC) libserver.a libonvif.a gen/soapNotificationConsumerBindingProxy.o libwsdd.a
 	$(CXX) -g -o $@ $^ $(CXXFLAGS) $(LDFLAGS)
 
-onvif-client.exe: src/onvif-client.o $(WSSE_SRC) $(GSOAP_PLUGINS)/wsaapi.c libclient.a gen/soapNotificationConsumerBindingService.o libonvif.a
+onvif-client: src/onvif-client.o $(WSSE_SRC) $(GSOAP_PLUGINS)/wsaapi.c libclient.a gen/soapNotificationConsumerBindingService.o libonvif.a
 	$(CXX) -g -o $@ $^ $(CXXFLAGS) $(LDFLAGS)
 
 clean:
-	make -C v4l2rtspserver clean || :
 	make -C ws-discovery/gsoap clean || :
 	rm -rf gen src/*.o *.a *.exe onvif-server onvif-client
 
