@@ -112,7 +112,6 @@ std::map<in_addr_t, in_addr_t> ServiceContext::getGateways()
 	char msgBuf[8292];
 	memset(msgBuf, 0, sizeof(msgBuf));
 	struct nlmsghdr *nlMsg = (struct nlmsghdr *)msgBuf;
-	struct rtmsg *rtMsg = (struct rtmsg *)NLMSG_DATA(nlMsg);
 	nlMsg->nlmsg_len = NLMSG_LENGTH(sizeof(struct rtmsg));
 	nlMsg->nlmsg_type = RTM_GETROUTE;
 	nlMsg->nlmsg_flags = NLM_F_DUMP | NLM_F_REQUEST;

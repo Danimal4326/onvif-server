@@ -59,6 +59,5 @@ int NotificationProducerBindingService::Subscribe(_wsnt__Subscribe *wsnt__Subscr
 int NotificationProducerBindingService::GetCurrentMessage(_wsnt__GetCurrentMessage *wsnt__GetCurrentMessage, _wsnt__GetCurrentMessageResponse &wsnt__GetCurrentMessageResponse)
 {
 	std::cout << __FUNCTION__ << std::endl;
-	ServiceContext* ctx = (ServiceContext*)this->soap->user;
 	return SOAP_OK;
 }

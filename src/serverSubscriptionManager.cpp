@@ -25,13 +25,11 @@
 int SubscriptionManagerBindingService::Renew(_wsnt__Renew *wsnt__Renew, _wsnt__RenewResponse &wsnt__RenewResponse)
 {
 	std::cout << __FUNCTION__ << std::endl;
-	ServiceContext* ctx = (ServiceContext*)this->soap->user;
 	return SOAP_OK;
 }
 
 int SubscriptionManagerBindingService::Unsubscribe(_wsnt__Unsubscribe *wsnt__Unsubscribe, _wsnt__UnsubscribeResponse &wsnt__UnsubscribeResponse)
 {
 	std::cout << __FUNCTION__ << std::endl;
-	ServiceContext* ctx = (ServiceContext*)this->soap->user;
 	return SOAP_OK;
 }

@@ -35,7 +35,6 @@ int PTZBindingService::GetServiceCapabilities(_tptz__GetServiceCapabilities *tpt
 int PTZBindingService::GetConfigurations(_tptz__GetConfigurations *tptz__GetConfigurations, _tptz__GetConfigurationsResponse &tptz__GetConfigurationsResponse) 
 {
 	std::cout << __FUNCTION__ << std::endl;
-	ServiceContext* ctx = (ServiceContext*)this->soap->user;
 	return SOAP_OK;
 }
 
@@ -43,7 +42,6 @@ int PTZBindingService::GetConfigurations(_tptz__GetConfigurations *tptz__GetConf
 int PTZBindingService::GetPresets(_tptz__GetPresets *tptz__GetPresets, _tptz__GetPresetsResponse &tptz__GetPresetsResponse) 
 {
 	std::cout << __FUNCTION__ << std::endl;
-	ServiceContext* ctx = (ServiceContext*)this->soap->user;
 	return SOAP_OK;
 }
 
@@ -51,7 +49,6 @@ int PTZBindingService::GetPresets(_tptz__GetPresets *tptz__GetPresets, _tptz__Ge
 int PTZBindingService::SetPreset(_tptz__SetPreset *tptz__SetPreset, _tptz__SetPresetResponse &tptz__SetPresetResponse) 
 {
 	std::cout << __FUNCTION__ << std::endl;
-	ServiceContext* ctx = (ServiceContext*)this->soap->user;
 	return SOAP_OK;
 }
 
@@ -59,7 +56,6 @@ int PTZBindingService::SetPreset(_tptz__SetPreset *tptz__SetPreset, _tptz__SetPr
 int PTZBindingService::RemovePreset(_tptz__RemovePreset *tptz__RemovePreset, _tptz__RemovePresetResponse &tptz__RemovePresetResponse) 
 {
 	std::cout << __FUNCTION__ << std::endl;
-	ServiceContext* ctx = (ServiceContext*)this->soap->user;
 	return SOAP_OK;
 }
 
@@ -67,7 +63,6 @@ int PTZBindingService::RemovePreset(_tptz__RemovePreset *tptz__RemovePreset, _tp
 int PTZBindingService::GotoPreset(_tptz__GotoPreset *tptz__GotoPreset, _tptz__GotoPresetResponse &tptz__GotoPresetResponse) 
 {
 	std::cout << __FUNCTION__ << std::endl;
-	ServiceContext* ctx = (ServiceContext*)this->soap->user;
 	return SOAP_OK;
 }
 
@@ -75,7 +70,6 @@ int PTZBindingService::GotoPreset(_tptz__GotoPreset *tptz__GotoPreset, _tptz__Go
 int PTZBindingService::GetStatus(_tptz__GetStatus *tptz__GetStatus, _tptz__GetStatusResponse &tptz__GetStatusResponse) 
 {
 	std::cout << __FUNCTION__ << std::endl;
-	ServiceContext* ctx = (ServiceContext*)this->soap->user;
 	return SOAP_OK;
 }
 
@@ -83,7 +77,6 @@ int PTZBindingService::GetStatus(_tptz__GetStatus *tptz__GetStatus, _tptz__GetSt
 int PTZBindingService::GetConfiguration(_tptz__GetConfiguration *tptz__GetConfiguration, _tptz__GetConfigurationResponse &tptz__GetConfigurationResponse) 
 {
 	std::cout << __FUNCTION__ << std::endl;
-	ServiceContext* ctx = (ServiceContext*)this->soap->user;
 	return SOAP_OK;
 }
 
@@ -91,7 +84,6 @@ int PTZBindingService::GetConfiguration(_tptz__GetConfiguration *tptz__GetConfig
 int PTZBindingService::GetNodes(_tptz__GetNodes *tptz__GetNodes, _tptz__GetNodesResponse &tptz__GetNodesResponse) 
 {
 	std::cout << __FUNCTION__ << std::endl;
-	ServiceContext* ctx = (ServiceContext*)this->soap->user;
 	return SOAP_OK;
 }
 
@@ -99,7 +91,6 @@ int PTZBindingService::GetNodes(_tptz__GetNodes *tptz__GetNodes, _tptz__GetNodes
 int PTZBindingService::GetNode(_tptz__GetNode *tptz__GetNode, _tptz__GetNodeResponse &tptz__GetNodeResponse) 
 {
 	std::cout << __FUNCTION__ << std::endl;
-	ServiceContext* ctx = (ServiceContext*)this->soap->user;
 	return SOAP_OK;
 }
 
@@ -107,7 +98,6 @@ int PTZBindingService::GetNode(_tptz__GetNode *tptz__GetNode, _tptz__GetNodeResp
 int PTZBindingService::SetConfiguration(_tptz__SetConfiguration *tptz__SetConfiguration, _tptz__SetConfigurationResponse &tptz__SetConfigurationResponse) 
 {
 	std::cout << __FUNCTION__ << std::endl;
-	ServiceContext* ctx = (ServiceContext*)this->soap->user;
 	return SOAP_OK;
 }
 
@@ -115,7 +105,6 @@ int PTZBindingService::SetConfiguration(_tptz__SetConfiguration *tptz__SetConfig
 int PTZBindingService::GetConfigurationOptions(_tptz__GetConfigurationOptions *tptz__GetConfigurationOptions, _tptz__GetConfigurationOptionsResponse &tptz__GetConfigurationOptionsResponse) 
 {
 	std::cout << __FUNCTION__ << std::endl;
-	ServiceContext* ctx = (ServiceContext*)this->soap->user;
 	return SOAP_OK;
 }
 
@@ -123,10 +112,11 @@ int PTZBindingService::GetConfigurationOptions(_tptz__GetConfigurationOptions *t
 int PTZBindingService::GotoHomePosition(_tptz__GotoHomePosition *tptz__GotoHomePosition, _tptz__GotoHomePositionResponse &tptz__GotoHomePositionResponse) 
 {
 	std::cout << __FUNCTION__ << std::endl;
-	ServiceContext* ctx = (ServiceContext*)this->soap->user;
 	
 	int ret = SOAP_FAULT;
 	// TODO: send to appropriate pi based on profile
+	// ServiceContext* ctx = (ServiceContext*)this->soap->user;
+        //
 	// auto it = ctx->m_devices.find(tptz__GotoHomePosition->ProfileToken);
 	// if (it != ctx->m_devices.end())
 	// {	
@@ -142,7 +132,6 @@ int PTZBindingService::GotoHomePosition(_tptz__GotoHomePosition *tptz__GotoHomeP
 int PTZBindingService::SetHomePosition(_tptz__SetHomePosition *tptz__SetHomePosition, _tptz__SetHomePositionResponse &tptz__SetHomePositionResponse) 
 {
 	std::cout << __FUNCTION__ << std::endl;
-	ServiceContext* ctx = (ServiceContext*)this->soap->user;
 	return SOAP_OK;
 }
 
@@ -150,7 +139,6 @@ int PTZBindingService::SetHomePosition(_tptz__SetHomePosition *tptz__SetHomePosi
 int PTZBindingService::ContinuousMove(_tptz__ContinuousMove *tptz__ContinuousMove, _tptz__ContinuousMoveResponse &tptz__ContinuousMoveResponse) 
 {
 	std::cout << __FUNCTION__ << std::endl;
-	ServiceContext* ctx = (ServiceContext*)this->soap->user;
 	return SOAP_OK;
 }
 
@@ -158,10 +146,11 @@ int PTZBindingService::ContinuousMove(_tptz__ContinuousMove *tptz__ContinuousMov
 int PTZBindingService::RelativeMove(_tptz__RelativeMove *tptz__RelativeMove, _tptz__RelativeMoveResponse &tptz__RelativeMoveResponse) 
 {
 	std::cout << __FUNCTION__ << std::endl;
-	ServiceContext* ctx = (ServiceContext*)this->soap->user;
 	
 	int ret = SOAP_FAULT;
 	// TODO: send to appropriate pi based on profile
+	// ServiceContext* ctx = (ServiceContext*)this->soap->user;
+        //
 	// auto it = ctx->m_devices.find(tptz__RelativeMove->ProfileToken);
 	// if (it != ctx->m_devices.end())
 	// {	
@@ -178,7 +167,6 @@ int PTZBindingService::RelativeMove(_tptz__RelativeMove *tptz__RelativeMove, _tp
 int PTZBindingService::SendAuxiliaryCommand(_tptz__SendAuxiliaryCommand *tptz__SendAuxiliaryCommand, _tptz__SendAuxiliaryCommandResponse &tptz__SendAuxiliaryCommandResponse) 
 {
 	std::cout << __FUNCTION__ << std::endl;
-	ServiceContext* ctx = (ServiceContext*)this->soap->user;
 	return SOAP_OK;
 }
 
@@ -186,10 +174,11 @@ int PTZBindingService::SendAuxiliaryCommand(_tptz__SendAuxiliaryCommand *tptz__S
 int PTZBindingService::AbsoluteMove(_tptz__AbsoluteMove *tptz__AbsoluteMove, _tptz__AbsoluteMoveResponse &tptz__AbsoluteMoveResponse) 
 {
 	std::cout << __FUNCTION__ << std::endl;
-	ServiceContext* ctx = (ServiceContext*)this->soap->user;
 
 	int ret = SOAP_FAULT;
 	// TODO: send to appropriate pi based on profile	
+	// ServiceContext* ctx = (ServiceContext*)this->soap->user;
+        //
 	// auto it = ctx->m_devices.find(tptz__AbsoluteMove->ProfileToken);
 	// if (it != ctx->m_devices.end())
 	// {	
@@ -206,7 +195,6 @@ int PTZBindingService::AbsoluteMove(_tptz__AbsoluteMove *tptz__AbsoluteMove, _tp
 int PTZBindingService::Stop(_tptz__Stop *tptz__Stop, _tptz__StopResponse &tptz__StopResponse) 
 {
 	std::cout << __FUNCTION__ << std::endl;
-	ServiceContext* ctx = (ServiceContext*)this->soap->user;
 	return SOAP_OK;
 }
 
@@ -214,7 +202,6 @@ int PTZBindingService::Stop(_tptz__Stop *tptz__Stop, _tptz__StopResponse &tptz__
 int PTZBindingService::GetPresetTours(_tptz__GetPresetTours *tptz__GetPresetTours, _tptz__GetPresetToursResponse &tptz__GetPresetToursResponse) 
 {
 	std::cout << __FUNCTION__ << std::endl;
-	ServiceContext* ctx = (ServiceContext*)this->soap->user;
 	return SOAP_OK;
 }
 
@@ -222,7 +209,6 @@ int PTZBindingService::GetPresetTours(_tptz__GetPresetTours *tptz__GetPresetTour
 int PTZBindingService::GetPresetTour(_tptz__GetPresetTour *tptz__GetPresetTour, _tptz__GetPresetTourResponse &tptz__GetPresetTourResponse) 
 {
 	std::cout << __FUNCTION__ << std::endl;
-	ServiceContext* ctx = (ServiceContext*)this->soap->user;
 	return SOAP_OK;
 }
 
@@ -230,7 +216,6 @@ int PTZBindingService::GetPresetTour(_tptz__GetPresetTour *tptz__GetPresetTour, 
 int PTZBindingService::GetPresetTourOptions(_tptz__GetPresetTourOptions *tptz__GetPresetTourOptions, _tptz__GetPresetTourOptionsResponse &tptz__GetPresetTourOptionsResponse) 
 {
 	std::cout << __FUNCTION__ << std::endl;
-	ServiceContext* ctx = (ServiceContext*)this->soap->user;
 	return SOAP_OK;
 }
 
@@ -238,7 +223,6 @@ int PTZBindingService::GetPresetTourOptions(_tptz__GetPresetTourOptions *tptz__G
 int PTZBindingService::CreatePresetTour(_tptz__CreatePresetTour *tptz__CreatePresetTour, _tptz__CreatePresetTourResponse &tptz__CreatePresetTourResponse) 
 {
 	std::cout << __FUNCTION__ << std::endl;
-	ServiceContext* ctx = (ServiceContext*)this->soap->user;
 	return SOAP_OK;
 }
 
@@ -246,7 +230,6 @@ int PTZBindingService::CreatePresetTour(_tptz__CreatePresetTour *tptz__CreatePre
 int PTZBindingService::ModifyPresetTour(_tptz__ModifyPresetTour *tptz__ModifyPresetTour, _tptz__ModifyPresetTourResponse &tptz__ModifyPresetTourResponse) 
 {
 	std::cout << __FUNCTION__ << std::endl;
-	ServiceContext* ctx = (ServiceContext*)this->soap->user;
 	return SOAP_OK;
 }
 
@@ -254,7 +237,6 @@ int PTZBindingService::ModifyPresetTour(_tptz__ModifyPresetTour *tptz__ModifyPre
 int PTZBindingService::OperatePresetTour(_tptz__OperatePresetTour *tptz__OperatePresetTour, _tptz__OperatePresetTourResponse &tptz__OperatePresetTourResponse) 
 {
 	std::cout << __FUNCTION__ << std::endl;
-	ServiceContext* ctx = (ServiceContext*)this->soap->user;
 	return SOAP_OK;
 }
 
@@ -262,7 +244,6 @@ int PTZBindingService::OperatePresetTour(_tptz__OperatePresetTour *tptz__Operate
 int PTZBindingService::RemovePresetTour(_tptz__RemovePresetTour *tptz__RemovePresetTour, _tptz__RemovePresetTourResponse &tptz__RemovePresetTourResponse) 
 {
 	std::cout << __FUNCTION__ << std::endl;
-	ServiceContext* ctx = (ServiceContext*)this->soap->user;
 	return SOAP_OK;
 }
 
@@ -270,7 +251,6 @@ int PTZBindingService::RemovePresetTour(_tptz__RemovePresetTour *tptz__RemovePre
 int PTZBindingService::GetCompatibleConfigurations(_tptz__GetCompatibleConfigurations *tptz__GetCompatibleConfigurations, _tptz__GetCompatibleConfigurationsResponse &tptz__GetCompatibleConfigurationsResponse) 
 {
 	std::cout << __FUNCTION__ << std::endl;
-	ServiceContext* ctx = (ServiceContext*)this->soap->user;
 	return SOAP_OK;
 }
 

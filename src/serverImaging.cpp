@@ -33,9 +33,10 @@ int ImagingBindingService::GetServiceCapabilities(_timg__GetServiceCapabilities 
 int ImagingBindingService::GetImagingSettings(_timg__GetImagingSettings *timg__GetImagingSettings, _timg__GetImagingSettingsResponse &timg__GetImagingSettingsResponse)  
 {
 	std::cout << __FUNCTION__ << std::endl;
-	ServiceContext* ctx = (ServiceContext*)this->soap->user;
 	
 	// TODO: implement function that gets imaging settings from server
+	// ServiceContext* ctx = (ServiceContext*)this->soap->user;
+        //
 	// auto it = ctx->m_devices.find(timg__GetImagingSettings->VideoSourceToken);
 	// if (it != ctx->m_devices.end())
 	// {
@@ -115,9 +116,10 @@ int ImagingBindingService::GetImagingSettings(_timg__GetImagingSettings *timg__G
 int ImagingBindingService::SetImagingSettings(_timg__SetImagingSettings *timg__SetImagingSettings, _timg__SetImagingSettingsResponse &timg__SetImagingSettingsResponse) 
 {
 	std::cout << __FUNCTION__ << std::endl;
-	ServiceContext* ctx = (ServiceContext*)this->soap->user;
 	
 	// TODO: send settings for camera to server
+	//ServiceContext* ctx = (ServiceContext*)this->soap->user;
+        //
 	// auto it = ctx->m_devices.find(timg__SetImagingSettings->VideoSourceToken);
 	// if (it != ctx->m_devices.end())
 	// {	
@@ -189,9 +191,10 @@ int ImagingBindingService::GetOptions(_timg__GetOptions *timg__GetOptions, _timg
 {
 	int ret = SOAP_FAULT;
 	std::cout << __FUNCTION__ << std::endl;
-	ServiceContext* ctx = (ServiceContext*)this->soap->user;
 	
 	// TODO: get range of values that camera accepts
+	// ServiceContext* ctx = (ServiceContext*)this->soap->user;
+        //
 	// auto it = ctx->m_devices.find(timg__GetOptions->VideoSourceToken);
 	// if (it != ctx->m_devices.end())
 	// {
@@ -243,9 +246,10 @@ int ImagingBindingService::GetOptions(_timg__GetOptions *timg__GetOptions, _timg
 int ImagingBindingService::Move(_timg__Move *timg__Move, _timg__MoveResponse &timg__MoveResponse) 
 {
 	std::cout << __FUNCTION__ << std::endl;
-	ServiceContext* ctx = (ServiceContext*)this->soap->user;
 	
 	// TODO: add support for this
+	// ServiceContext* ctx = (ServiceContext*)this->soap->user;
+        //
 	// auto it = ctx->m_devices.find(timg__Move->VideoSourceToken);
 	// if (it != ctx->m_devices.end())
 	// {	
@@ -270,9 +274,10 @@ int ImagingBindingService::Move(_timg__Move *timg__Move, _timg__MoveResponse &ti
 int ImagingBindingService::Stop(_timg__Stop *timg__Stop, _timg__StopResponse &timg__StopResponse) 
 {
 	std::cout << __FUNCTION__ << std::endl;
-	ServiceContext* ctx = (ServiceContext*)this->soap->user;
 	
 	// TODO: add support for this
+	// ServiceContext* ctx = (ServiceContext*)this->soap->user;
+        //
 	// auto it = ctx->m_devices.find(timg__Stop->VideoSourceToken);
 	// if (it != ctx->m_devices.end())
 	// {	
@@ -284,9 +289,10 @@ int ImagingBindingService::Stop(_timg__Stop *timg__Stop, _timg__StopResponse &ti
 int ImagingBindingService::GetStatus(_timg__GetStatus *timg__GetStatus, _timg__GetStatusResponse &timg__GetStatusResponse) 
 {
 	std::cout << __FUNCTION__ << std::endl;
-	ServiceContext* ctx = (ServiceContext*)this->soap->user;
 	
 	// TODO: add support for this
+	//ServiceContext* ctx = (ServiceContext*)this->soap->user;
+        //
 	// auto it = ctx->m_devices.find(timg__GetStatus->VideoSourceToken);
 	// if (it != ctx->m_devices.end())
 	// {	
@@ -310,9 +316,10 @@ int ImagingBindingService::GetStatus(_timg__GetStatus *timg__GetStatus, _timg__G
 int ImagingBindingService::GetMoveOptions(_timg__GetMoveOptions *timg__GetMoveOptions, _timg__GetMoveOptionsResponse &timg__GetMoveOptionsResponse) 
 {
 	std::cout << __FUNCTION__ << std::endl;
-	ServiceContext* ctx = (ServiceContext*)this->soap->user;
 	
 	// TODO: implement this
+	// ServiceContext* ctx = (ServiceContext*)this->soap->user;
+        //
 	// auto it = ctx->m_devices.find(timg__GetMoveOptions->VideoSourceToken);
 	// if (it != ctx->m_devices.end())
 	// {	

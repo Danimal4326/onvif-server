@@ -32,10 +32,8 @@ int DisplayBindingService::GetServiceCapabilities(_tls__GetServiceCapabilities *
 int DisplayBindingService::GetLayout(_tls__GetLayout *tls__GetLayout, _tls__GetLayoutResponse &tls__GetLayoutResponse) 
 {
 	std::cout << __FUNCTION__ << std::endl;
-	ServiceContext* ctx = (ServiceContext*)this->soap->user;
 	tls__GetLayoutResponse.Layout = soap_new_tt__Layout(this->soap);
 	tls__GetLayoutResponse.Layout->PaneLayout.push_back(soap_new_tt__PaneLayout(this->soap));
-	// tls__GetLayoutResponse.Layout->PaneLayout.back()->Pane = ctx->m_outdevice;
 	tls__GetLayoutResponse.Layout->PaneLayout.back()->Area = soap_new_tt__Rectangle(this->soap);
 	return SOAP_OK;
 }
@@ -49,7 +47,6 @@ int DisplayBindingService::SetLayout(_tls__SetLayout *tls__SetLayout, _tls__SetL
 int DisplayBindingService::GetDisplayOptions(_tls__GetDisplayOptions *tls__GetDisplayOptions, _tls__GetDisplayOptionsResponse &tls__GetDisplayOptionsResponse) 
 {
 	std::cout << __FUNCTION__ << std::endl;
-	ServiceContext* ctx = (ServiceContext*)this->soap->user;
 	tls__GetDisplayOptionsResponse.CodingCapabilities = soap_new_tt__CodingCapabilities(this->soap);
 	tls__GetDisplayOptionsResponse.CodingCapabilities->VideoDecodingCapabilities = soap_new_tt__VideoDecoderConfigurationOptions(this->soap);
 	tls__GetDisplayOptionsResponse.CodingCapabilities->VideoDecodingCapabilities->H264DecOptions = soap_new_tt__H264DecOptions(this->soap);

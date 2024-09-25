@@ -110,27 +110,10 @@ int http_get(struct soap *soap)
 int main(int argc, char* argv[])
 {
 	std::string username;
-	int httpport = 8080;
 	ServiceContext deviceCtx;
 	std::string config_path;
 
-	// int c = 0;
-	// while ((c = getopt (argc, argv, "h" "u:p:" "H:" "c:")) != -1)
-	// {
-	// 	switch (c)
-	// 	{
-	// 		case 'H':	httpport  = atoi(optarg); break;
-	// 		case 'u':	username  = optarg; break;
-	// 		case 'p':	deviceCtx.m_userList[username] = User(optarg,tt__UserLevel__Administrator); break;
-	// 		case 'c':   config_path = optarg; break;
-	// 		case 'h':
-	// 			std::cout << argv[0] << " [-H http port] [-R rtsp port] [-u username] [-p password]" << std::endl;
-	// 			exit(0);
-	// 		break;
-	// 	}
-	// }
-
-	int c = 0;
+        int c = 0;
 	while ((c = getopt(argc, argv, "h" "c:")) != -1)
 	{
 		switch(c)
@@ -214,7 +197,7 @@ int main(int argc, char* argv[])
 		height = device["height"].as<std::uint32_t>();
 
             if (device["framerate"].IsDefined())
-		frameRate = device["frameRate"].as<float>();
+		frameRate = device["framerate"].as<float>();
 
             if (device["type"].IsDefined())
                 type = device["type"].as<std::string>();

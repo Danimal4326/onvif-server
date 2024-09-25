@@ -11,7 +11,7 @@ GSOAP_BIN?=$(GSOAP_PREFIX)/bin
 GSOAP_BASE=$(GSOAP_PREFIX)/share/gsoap
 GSOAP_PLUGINS=$(GSOAP_BASE)/plugin
 
-CXXFLAGS+=-std=c++11 -g2 -I inc -I ws-discovery/gsoap/
+CXXFLAGS+=-std=c++11 -g2 -I inc -I ws-discovery/gsoap/ -Wunreachable-code -Wunused -Wno-deprecated-declarations
 CXXFLAGS+=-I gen -I $(GSOAP_PREFIX)/include -I $(GSOAP_PLUGINS)
 CXXFLAGS+=-DWITH_OPENSSL -DSOAP_PURE_VIRTUAL -fpermissive -pthread -DVERSION=\"$(VERSION)\"
 LDFLAGS+=-L $(GSOAP_PREFIX)/lib/ -lgsoapssl++ -lz -pthread -lssl -lcrypto -ldl -lyaml-cpp -static-libstdc++
@@ -36,7 +36,7 @@ CLIENT_OBJ+=gen/soapEventBindingProxy.o gen/soapPullPointSubscriptionBindingProx
 CLIENT_OBJ+=gen/soapRecordingBindingProxy.o gen/soapReplayBindingProxy.o gen/soapReceiverBindingProxy.o gen/soapSearchBindingProxy.o 
 CLIENT_OBJ+=gen/soapDisplayBindingProxy.o
 
-all: gen/onvif.h libwsdd.a onvif-server onvif-client
+all: gen/onvif.h libwsdd.a onvif-server 
 
 gen/onvif.h: $(wildcard wsdl/*) 
 	mkdir -p gen
@@ -64,14 +64,11 @@ libwsdd.a:
 onvif-server: src/onvif-server.o src/onvif_impl.o $(WSSE_SRC) libserver.a libonvif.a gen/soapNotificationConsumerBindingProxy.o libwsdd.a
 	$(CXX) -g -o $@ $^ $(CXXFLAGS) $(LDFLAGS)
 
-onvif-client: src/onvif-client.o $(WSSE_SRC) $(GSOAP_PLUGINS)/wsaapi.c libclient.a gen/soapNotificationConsumerBindingService.o libonvif.a
-	$(CXX) -g -o $@ $^ $(CXXFLAGS) $(LDFLAGS)
 
 clean:
 	make -C ws-discovery/gsoap clean || :
-	rm -rf gen src/*.o *.a *.exe onvif-server onvif-client
+	rm -rf gen src/*.o *.a *.exe onvif-server 
 
 install:
 	mkdir -p $(DESTDIR)
 	install -D -m 0755 onvif-server $(DESTDIR)
-	install -D -m 0755 onvif-client $(DESTDIR)

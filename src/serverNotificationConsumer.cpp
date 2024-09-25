@@ -24,7 +24,6 @@
 int NotificationConsumerBindingService::Notify(_wsnt__Notify *wsnt__Notify) 
 {
 	std::cout << __FUNCTION__ << std::endl;
-	ServiceContext* ctx = (ServiceContext*)this->soap->user;
 	
 	for (auto msg : wsnt__Notify->NotificationMessage)
 	{
