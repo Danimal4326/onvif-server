@@ -1,0 +1,14 @@
+server:
+  username:  admin
+  password:  admin
+  http_port: 1000
+  manufacturer: Onvif
+  model: Camera
+  devices:
+  - name: Stream0
+    token: RTSP
+    rtsp_url: rtsp://127.0.0.1/rtsp_stream
+    snapshot_url: http://127.0.0.1/image.jpg
+    width: 1280
+    height: 720
+    framerate: 30
