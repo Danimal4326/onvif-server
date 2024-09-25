@@ -40,18 +40,20 @@ class Device
 {
 	public:
 		Device() {}
-		Device(const std::string &name, uint16_t rtsp_port, const std::string &rtsp_url, uint32_t width, uint32_t height, uint32_t pixformat) 
+		Device(const std::string &name, const std::string &rtsp_url, const std::string &snapshot_url, uint32_t width, uint32_t height, float framerate, uint32_t pixformat) 
 		 : m_name(name), 
-		   m_rtsp_port(rtsp_port), 
 		   m_rtsp_url(rtsp_url),
+                   m_snapshot_url(snapshot_url),
 		   m_width(width),
 		   m_height(height),
+                   m_framerate(framerate),
 		   m_pixformat(pixformat) {}
 		std::string m_name;
-		uint16_t m_rtsp_port;
 		std::string m_rtsp_url;
+                std::string m_snapshot_url;
 		uint32_t m_width;
 		uint32_t m_height;
+                float m_framerate;
 		uint32_t m_pixformat;
 };
 
@@ -73,6 +75,11 @@ public:
 	std::pair<int,int> getCtrlRange     (const std::string &device, int idctrl);
 	void               getIdentification(const std::string &device, std::string & card, std::string & driver, std::string & bus);
 	std::string        getName          (const std::string &device);
+	std::string        getManufacturer  ();
+	std::string        getModel         ();
+	std::string        getHardwareId    ();
+	std::string        getFirmwareVersion();
+	std::string        getSerialNumber  ();
 
 	// service capabilities
 	tds__DeviceServiceCapabilities* getDeviceServiceCapabilities(struct soap* soap);
@@ -110,6 +117,11 @@ public:
 	std::list<NotificationConsumerBindingProxy*> m_subscriber;
 	std::string m_timezone;
 	int         m_isdst;
+        std::string m_manufacturer = "Onvif";
+        std::string m_model = "Camera";
+        std::string m_hardwareid = "1";
+        std::string m_firmwareversion = "1.0.0";
+        std::string m_serialnumber = "0.0.0";
 };
 
 template<typename T>

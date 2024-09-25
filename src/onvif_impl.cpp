@@ -190,7 +190,7 @@ int ServiceContext::getFormat(const std::string &device, int &width, int &height
 float ServiceContext::getFrameRate(const std::string &device)
 {
 	// TODO: implement this
-	return 1;
+	return m_devices[device].m_framerate;
 }
 
 int ServiceContext::getCtrlValue(const std::string &device, int idctrl)
@@ -246,12 +246,35 @@ std::string ServiceContext::getName(const std::string &device)
 	return m_devices[device].m_name;
 }
 
+std::string ServiceContext::getManufacturer()
+{
+	return m_manufacturer;
+}
+
+std::string ServiceContext::getModel()
+{
+	return m_model;
+}
+
+std::string ServiceContext::getHardwareId()
+{
+	return m_hardwareid;
+}
+
+std::string ServiceContext::getFirmwareVersion()
+{
+	return m_firmwareversion;
+}
+
+std::string ServiceContext::getSerialNumber()
+{
+	return m_serialnumber;
+}
+
 std::list<std::string> ServiceContext::getScopes()
 {
 	std::list<std::string> scopes;
-	char hostname[HOST_NAME_MAX];
-	gethostname(hostname, sizeof(hostname));
-	scopes.push_back("onvif://www.onvif.org/name/" + std::string(hostname));
+	scopes.push_back("onvif://www.onvif.org/name/" + m_manufacturer + "-" + m_model);
 	scopes.push_back("onvif://www.onvif.org/location/somewhere");
 	scopes.push_back("onvif://www.onvif.org/Profile/Streaming");
 	scopes.push_back("onvif://www.onvif.org/Profile/G");

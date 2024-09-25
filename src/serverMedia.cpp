@@ -582,7 +582,7 @@ int MediaBindingService::GetSnapshotUri(_trt__GetSnapshotUri *trt__GetSnapshotUr
 		auto it = ctx->m_devices.find(trt__GetSnapshotUri->ProfileToken);
 		if (it != ctx->m_devices.end())
 		{
-			trt__GetSnapshotUriResponse.MediaUri->Uri.assign(it->second.m_rtsp_url);
+			trt__GetSnapshotUriResponse.MediaUri->Uri.assign(it->second.m_snapshot_url);
 			ret = SOAP_OK;
 		}
 	}	

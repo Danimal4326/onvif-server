@@ -13,7 +13,7 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -----------------------------------------------------------------------------
  server.cpp
- 
+
  onvif server
 ----------------------------------------------------------------------------- */
 
@@ -54,13 +54,13 @@
 int http_get(struct soap *soap)
 {
 	int retCode = 404;
-	FILE *fd = fopen(soap->path + 1, "rb"); 
+	FILE *fd = fopen(soap->path + 1, "rb");
 	if (fd != NULL)
 	{
 		if (!soap_tag_cmp(soap->path, "*.html"))
-			soap->http_content = "text/html"; 
+			soap->http_content = "text/html";
 		if (!soap_tag_cmp(soap->path, "*.wsdl"))
-			soap->http_content = "text/xml"; 
+			soap->http_content = "text/xml";
 		soap_response(soap, SOAP_FILE);
 		for (;;)
 		{
@@ -73,7 +73,7 @@ int http_get(struct soap *soap)
 		retCode = SOAP_OK;
 	}
 	return retCode;
-} 
+}
 
 #define FOREACH_SERVICE(APPLY,soap) \
 		APPLY(DeviceBindingService,soap)    \
@@ -108,7 +108,7 @@ int http_get(struct soap *soap)
 
 
 int main(int argc, char* argv[])
-{		
+{
 	std::string username;
 	int httpport = 8080;
 	ServiceContext deviceCtx;
@@ -163,41 +163,92 @@ int main(int argc, char* argv[])
 	std::cout << "Username:  " << server["username"].as<std::string>() << std::endl;
 	std::cout << "Password:  " << server["password"].as<std::string>() << std::endl;
 	deviceCtx.m_userList[server["username"].as<std::string>()] = User(server["password"].as<std::string>(), tt__UserLevel__Administrator);
-	
+
 	std::cout << "HTTP Port: " << server["http_port"].as<std::int16_t>() << std::endl;
 	deviceCtx.m_port = server["http_port"].as<std::int16_t>();
 	std::cout << "# Devices: " << server["devices"].size() << std::endl;
 
+        if (server["Manufacturer"].IsDefined())
+            deviceCtx.m_manufacturer = server["Manufacturer"].as<std::string>();
+
+        if (server["Model"].IsDefined())
+            deviceCtx.m_model = server["Model"].as<std::string>();
+
+        if (server["HardwareID"].IsDefined())
+            deviceCtx.m_hardwareid = server["HardwareID"].as<std::string>();
+
+        if (server["FirmwareVersion"].IsDefined())
+            deviceCtx.m_firmwareversion = server["FirmwareVersion"].as<std::string>();
+
+        if (server["SerialNumber"].IsDefined())
+            deviceCtx.m_serialnumber = server["SerialNumber"].as<std::string>();
+
+        std::string token = "token";
+        std::string name = "name";
+        std::string rtsp_url = "undef";
+        std::string snapshot_url = "undef";
+        std::uint32_t width = 640;
+        std::uint32_t height = 480;
+        float frameRate = 25.0;
+        std::string type = "H264";
+
+
 	for(auto device : server["devices"])
 	{
-		std::string token = device["token"].as<std::string>();
-		std::string name = device["name"].as<std::string>();
-		std::uint16_t port = device["rtsp_port"].as<std::int16_t>();
-		std::string uri = device["rtsp_uri"].as<std::string>();
-		std::uint32_t width = device["width"].as<std::uint32_t>();
-		std::uint32_t height = device["height"].as<std::uint32_t>();
-		std::string pixformat = device["width"].as<std::string>();
+            if (device["token"].IsDefined())
+                token = device["token"].as<std::string>();
 
-		std::cout << "- Token: " << token << std::endl;
-		std::cout << "  Name: " << name << std::endl;
-		std::cout << "  Port: " << port << std::endl;
-		std::cout << "  URI: " << uri << std::endl;
-		std::cout << "  Width: " << width << std::endl;
-		std::cout << "  Height: " << height << std::endl;
-		std::cout << "  Pixformat: " << pixformat << std::endl;
+            if (device["name"].IsDefined())
+		name = device["name"].as<std::string>();
 
-		int format = V4L2_PIX_FMT_H264;
-		if(pixformat == "V4L2_PIX_FMT_H264")
-		{
-			format = V4L2_PIX_FMT_H264;
-		}
-		else if(pixformat == "V4L2_PIX_FMT_JPEG")
-		{
-			format = V4L2_PIX_FMT_JPEG;
-		}
+            if (device["rtsp_url"].IsDefined())
+		rtsp_url = device["rtsp_url"].as<std::string>();
 
-		deviceCtx.m_devices[token] = (Device(name, port, uri, width, height, format));
-	}
+            if (device["snapshot_url"].IsDefined())
+		snapshot_url = device["snapshot_url"].as<std::string>();
+
+            if (device["width"].IsDefined())
+		width = device["width"].as<std::uint32_t>();
+
+            if (device["height"].IsDefined())
+		height = device["height"].as<std::uint32_t>();
+
+            if (device["framerate"].IsDefined())
+		frameRate = device["frameRate"].as<float>();
+
+            if (device["type"].IsDefined())
+                type = device["type"].as<std::string>();
+
+            std::cout << "- Token: " << token << std::endl;
+            std::cout << "  Name: " << name << std::endl;
+            std::cout << "  RTSP URL: " << rtsp_url << std::endl;
+            std::cout << "  Snapshot URL: " << snapshot_url << std::endl;
+            std::cout << "  Width: " << width << std::endl;
+            std::cout << "  Height: " << height << std::endl;
+            std::cout << "  Frame Rate: " << frameRate << std::endl;
+            std::cout << "  Type: " << type << std::endl;
+
+            int format = V4L2_PIX_FMT_H264;
+            if(type == "H264")
+            {
+                format = V4L2_PIX_FMT_H264;
+            }
+            else if(type == "JPEG")
+            {
+                format = V4L2_PIX_FMT_JPEG;
+            }
+            else if(type == "MPEG")
+            {
+                format = V4L2_PIX_FMT_MPEG;
+            }
+            else if(type == "MPG4")
+            {
+                format = V4L2_PIX_FMT_MPEG4;
+            }
+
+            deviceCtx.m_devices[token] = (Device(name, rtsp_url, snapshot_url, width, height, frameRate, format));
+
+        }
 
 	std::cout << std::endl;
 
@@ -209,12 +260,12 @@ int main(int argc, char* argv[])
 	// start WS server
 	struct soap *soap = soap_new();
 	soap->user = (void*)&deviceCtx;
-	soap->fget = http_get; 
+	soap->fget = http_get;
 	soap->bind_flags |= SO_REUSEADDR;
-	{			
+	{
 		FOREACH_SERVICE(DECLARE_SERVICE,soap)
 
-		if (!soap_valid_socket(soap_bind(soap, NULL, deviceCtx.m_port, 100))) 
+		if (!soap_valid_socket(soap_bind(soap, NULL, deviceCtx.m_port, 100)))
 		{
 			soap_stream_fault(soap, std::cerr);
 		}
@@ -231,32 +282,32 @@ int main(int argc, char* argv[])
 							, deviceCtx.getScopesString().c_str()
 							, soap_wsa_rand_uuid(soap));
 
-			std::thread wsdd( [&conf] { 
-				wsd_server(conf); 
+			std::thread wsdd( [&conf] {
+				wsd_server(conf);
 			});
 
 			// SOAP services
-			while (soap_accept(soap) != SOAP_OK) 
+			while (soap_accept(soap) != SOAP_OK)
 			{
 				if (soap_begin_serve(soap))
 				{
 					soap_stream_fault(soap, std::cerr);
 				}
 				FOREACH_SERVICE(DISPATCH_SERVICE,soap)
-				else 
+				else
 				{
-					std::cout << "Unknown service" << std::endl;				
-				}				
+					std::cout << "Unknown service" << std::endl;
+				}
 			}
 
 			conf.m_stop = true;
 			wsdd.join();
 		}
 	}
-	
+
 	soap_destroy(soap);
 	soap_end(soap);
-	soap_free(soap); 			
-	
+	soap_free(soap);
+
 	return 0;
 }

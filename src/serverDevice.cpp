@@ -177,11 +177,11 @@ int DeviceBindingService::GetDeviceInformation(_tds__GetDeviceInformation *tds__
 	std::cout << __FUNCTION__ << std::endl;
 	ServiceContext* ctx = (ServiceContext*)this->soap->user;
 	struct utsname info;
-		tds__GetDeviceInformationResponse.Manufacturer    = info.release;
-		tds__GetDeviceInformationResponse.Model           = info.sysname;
-		tds__GetDeviceInformationResponse.HardwareId      = info.machine;
-		tds__GetDeviceInformationResponse.FirmwareVersion = VERSION;
-		tds__GetDeviceInformationResponse.SerialNumber    = info.version;
+		tds__GetDeviceInformationResponse.Manufacturer    = ctx->getManufacturer();
+		tds__GetDeviceInformationResponse.Model           = ctx->getModel();
+		tds__GetDeviceInformationResponse.HardwareId      = ctx->getHardwareId();
+		tds__GetDeviceInformationResponse.FirmwareVersion = ctx->getFirmwareVersion();
+		tds__GetDeviceInformationResponse.SerialNumber    = ctx->getSerialNumber();
 	if (uname(&info) == 0) {
 		
 	}	
@@ -633,14 +633,13 @@ int DeviceBindingService::GetNetworkProtocols(_tds__GetNetworkProtocols *tds__Ge
 	tds__GetNetworkProtocolsResponse.NetworkProtocols.back()->Enabled = true;
 	tds__GetNetworkProtocolsResponse.NetworkProtocols.back()->Port.push_back(ctx->m_port);
 
-	for(auto device : ctx->m_devices)
+        for(auto device : ctx->m_devices)
 	{
 		tds__GetNetworkProtocolsResponse.NetworkProtocols.push_back(soap_new_tt__NetworkProtocol(soap));
 		tds__GetNetworkProtocolsResponse.NetworkProtocols.back()->Name = tt__NetworkProtocolType__RTSP;
 		tds__GetNetworkProtocolsResponse.NetworkProtocols.back()->Enabled = true;
-		tds__GetNetworkProtocolsResponse.NetworkProtocols.back()->Port.push_back(device.second.m_rtsp_port);
+		tds__GetNetworkProtocolsResponse.NetworkProtocols.back()->Port.push_back(554);
 	}
-
 	return SOAP_OK;
 }
 
