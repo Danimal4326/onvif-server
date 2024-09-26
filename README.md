@@ -1,26 +1,11 @@
-# thunderbird-onvif
+# onvif_server
 Implementation of ONVIF Profile S, providing device management for networked camera streams over SOAP protocol.
-
-# Usage
-```yaml
-server:
-  username:  luminosity
-  password:  123456
-  http_port: 80
-  devices:
-  - name: camera0
-    rtsp_port: 9000
-    rtsp_uri: rtsp://localhost:9000
-  - name: camera1
-    rtsp_port: 9001
-    rtsp_uri: rtsp://localhost:9001
-```
 
 # Source Code Configs
 ## Building
 1) Clone the repository:  
 ```
-git clone https://github.com/ASU-LL/thunderbird-onvif
+git clone https://github.com/danimal4326/onvif_server
 ```
 2) Install necessary libraries for gSOAP protocol and YAML parser:
 ```
@@ -28,10 +13,29 @@ sudo apt-get install -y --no-install-recommends gsoap libgsoap-dev libssl-dev zl
 ```
 3) Run make (this will take ~2 minutes):
 ```
-cd thunderbird-onvif
+cd onvif_server
 make
 ```
-## Configuring
-### Device Parameters & PTZ Control
-### RTSP URLs
-### Global Context
+## Configuring and Running
+
+Create a yaml file with configuration details:
+
+config.yaml
+```yaml
+server:
+  username:  admin
+  password:  admin
+  http_port: 1000
+  manufacturer: Onvif
+  model: Camera
+  devices:
+  - name: Stream0
+    token: RTSP
+    rtsp_url: rtsp://localhost/rtsp_stream
+    snapshot_url: http://localhost/image.jpg
+    width: 1280
+    height: 720
+    framerate: 30
+```
+
+`onvif_server -c config.yaml`

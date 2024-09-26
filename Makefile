@@ -38,11 +38,11 @@ CLIENT_OBJ+=gen/soapDisplayBindingProxy.o
 
 all: gen/onvif.h libwsdd.a onvif-server 
 
-gen/onvif.h: $(wildcard wsdl/*) 
+gen/onvif.h: $(wildcard wsdl/*) | libwsdd.a
 	mkdir -p gen
 	$(GSOAP_BIN)/wsdl2h -d -Ntev -W -L -o $@ $^
 	$(GSOAP_BIN)/soapcpp2 -2jx $@ -I $(GSOAP_BASE)/import -I $(GSOAP_BASE) -I inc -d gen -f1000 -w || :
-	make
+	make -j
 
 libserver.a: $(SERVER_OBJ) $(SOAP_OBJ) | gen/onvif.h
 	$(AR) rcs $@ $^
