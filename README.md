@@ -26,8 +26,8 @@ server:
   username:  admin
   password:  admin
   http_port: 1000
-  manufacturer: Onvif
-  model: Camera
+  Manufacturer: Onvif
+  Model: Camera
   devices:
   - name: Stream0
     token: RTSP
