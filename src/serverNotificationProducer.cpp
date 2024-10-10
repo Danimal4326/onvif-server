@@ -25,7 +25,9 @@
 
 int NotificationProducerBindingService::Subscribe(_wsnt__Subscribe *wsnt__Subscribe, _wsnt__SubscribeResponse &wsnt__SubscribeResponse)
 {
+#ifdef DEBUG
 	std::cout << __FUNCTION__ << std::endl;
+#endif
 	ServiceContext* ctx = (ServiceContext*)this->soap->user;
 	
 	NotificationConsumerBindingProxy* subcriberProxy = new NotificationConsumerBindingProxy(wsnt__Subscribe->ConsumerReference.Address);
@@ -58,6 +60,8 @@ int NotificationProducerBindingService::Subscribe(_wsnt__Subscribe *wsnt__Subscr
 
 int NotificationProducerBindingService::GetCurrentMessage(_wsnt__GetCurrentMessage *wsnt__GetCurrentMessage, _wsnt__GetCurrentMessageResponse &wsnt__GetCurrentMessageResponse)
 {
+#ifdef DEBUG
 	std::cout << __FUNCTION__ << std::endl;
+#endif
 	return SOAP_OK;
 }

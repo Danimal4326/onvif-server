@@ -25,7 +25,9 @@
 
 int EventBindingService::GetServiceCapabilities(_tev__GetServiceCapabilities *tev__GetServiceCapabilities, _tev__GetServiceCapabilitiesResponse &tev__GetServiceCapabilitiesResponse) 
 {
+#ifdef DEBUG
 	std::cout << __FUNCTION__ << std::endl;
+#endif
 	ServiceContext* ctx = (ServiceContext*)this->soap->user;
 	tev__GetServiceCapabilitiesResponse.Capabilities = ctx->getEventServiceCapabilities(this->soap);		
 	return SOAP_OK;
@@ -33,7 +35,9 @@ int EventBindingService::GetServiceCapabilities(_tev__GetServiceCapabilities *te
 
 int EventBindingService::CreatePullPointSubscription(_tev__CreatePullPointSubscription *tev__CreatePullPointSubscription, _tev__CreatePullPointSubscriptionResponse &tev__CreatePullPointSubscriptionResponse) 
 {
+#ifdef DEBUG
 	std::cout << __FUNCTION__ << std::endl;
+#endif
 	ServiceContext* ctx = (ServiceContext*)this->soap->user;
 	
 	std::ostringstream os;
@@ -53,7 +57,9 @@ int EventBindingService::CreatePullPointSubscription(_tev__CreatePullPointSubscr
 
 int EventBindingService::GetEventProperties(_tev__GetEventProperties *tev__GetEventProperties, _tev__GetEventPropertiesResponse &tev__GetEventPropertiesResponse) 
 {
+#ifdef DEBUG
 	std::cout << __FUNCTION__ << std::endl;
+#endif
 	return SOAP_OK;
 }
 

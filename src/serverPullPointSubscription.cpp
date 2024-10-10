@@ -25,7 +25,9 @@
 
 int PullPointSubscriptionBindingService::PullMessages(_tev__PullMessages *tev__PullMessages, _tev__PullMessagesResponse &tev__PullMessagesResponse) 
 {
+#ifdef DEBUG
 	std::cout << __FUNCTION__ << std::endl;
+#endif
 	for (int i=0; i<10; i++)
 	{
 		std::ostringstream os;
@@ -39,12 +41,16 @@ int PullPointSubscriptionBindingService::PullMessages(_tev__PullMessages *tev__P
 
 int PullPointSubscriptionBindingService::Seek(_tev__Seek *tev__Seek, _tev__SeekResponse &tev__SeekResponse) 
 {
+#ifdef DEBUG
 	std::cout << __FUNCTION__ << std::endl;
+#endif
 	return SOAP_OK;
 }
 
 int PullPointSubscriptionBindingService::SetSynchronizationPoint(_tev__SetSynchronizationPoint *tev__SetSynchronizationPoint, _tev__SetSynchronizationPointResponse &tev__SetSynchronizationPointResponse) 
 {
+#ifdef DEBUG
 	std::cout << __FUNCTION__ << std::endl;
+#endif
 	return SOAP_OK;
 }

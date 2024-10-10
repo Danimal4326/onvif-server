@@ -23,7 +23,9 @@
 
 int DisplayBindingService::GetServiceCapabilities(_tls__GetServiceCapabilities *tls__GetServiceCapabilities, _tls__GetServiceCapabilitiesResponse &tls__GetServiceCapabilitiesResponse) 
 {
+#ifdef DEBUG
 	std::cout << __FUNCTION__ << std::endl;
+#endif
 	ServiceContext* ctx = (ServiceContext*)this->soap->user;
 	tls__GetServiceCapabilitiesResponse.Capabilities = ctx->getDisplayServiceCapabilities(this->soap);		
 	return SOAP_OK;
@@ -31,7 +33,9 @@ int DisplayBindingService::GetServiceCapabilities(_tls__GetServiceCapabilities *
 
 int DisplayBindingService::GetLayout(_tls__GetLayout *tls__GetLayout, _tls__GetLayoutResponse &tls__GetLayoutResponse) 
 {
+#ifdef DEBUG
 	std::cout << __FUNCTION__ << std::endl;
+#endif
 	tls__GetLayoutResponse.Layout = soap_new_tt__Layout(this->soap);
 	tls__GetLayoutResponse.Layout->PaneLayout.push_back(soap_new_tt__PaneLayout(this->soap));
 	tls__GetLayoutResponse.Layout->PaneLayout.back()->Area = soap_new_tt__Rectangle(this->soap);
@@ -40,13 +44,17 @@ int DisplayBindingService::GetLayout(_tls__GetLayout *tls__GetLayout, _tls__GetL
 
 int DisplayBindingService::SetLayout(_tls__SetLayout *tls__SetLayout, _tls__SetLayoutResponse &tls__SetLayoutResponse) 
 {
+#ifdef DEBUG
 	std::cout << __FUNCTION__ << std::endl;
+#endif
 	return SOAP_OK;
 }
 
 int DisplayBindingService::GetDisplayOptions(_tls__GetDisplayOptions *tls__GetDisplayOptions, _tls__GetDisplayOptionsResponse &tls__GetDisplayOptionsResponse) 
 {
+#ifdef DEBUG
 	std::cout << __FUNCTION__ << std::endl;
+#endif
 	tls__GetDisplayOptionsResponse.CodingCapabilities = soap_new_tt__CodingCapabilities(this->soap);
 	tls__GetDisplayOptionsResponse.CodingCapabilities->VideoDecodingCapabilities = soap_new_tt__VideoDecoderConfigurationOptions(this->soap);
 	tls__GetDisplayOptionsResponse.CodingCapabilities->VideoDecodingCapabilities->H264DecOptions = soap_new_tt__H264DecOptions(this->soap);
@@ -56,13 +64,17 @@ int DisplayBindingService::GetDisplayOptions(_tls__GetDisplayOptions *tls__GetDi
 
 int DisplayBindingService::GetPaneConfigurations(_tls__GetPaneConfigurations *tls__GetPaneConfigurations, _tls__GetPaneConfigurationsResponse &tls__GetPaneConfigurationsResponse) 
 {
+#ifdef DEBUG
 	std::cout << __FUNCTION__ << std::endl;
+#endif
 	return SOAP_OK;
 }
 
 int DisplayBindingService::GetPaneConfiguration(_tls__GetPaneConfiguration *tls__GetPaneConfiguration, _tls__GetPaneConfigurationResponse &tls__GetPaneConfigurationResponse) 
 {
+#ifdef DEBUG
 	std::cout << __FUNCTION__ << std::endl;
+#endif
 	tls__GetPaneConfigurationResponse.PaneConfiguration = soap_new_tt__PaneConfiguration(this->soap);
 	tls__GetPaneConfigurationResponse.PaneConfiguration->PaneName = soap_new_std__string(this->soap);
 	tls__GetPaneConfigurationResponse.PaneConfiguration->PaneName->assign("Display");
@@ -73,25 +85,33 @@ int DisplayBindingService::GetPaneConfiguration(_tls__GetPaneConfiguration *tls_
 
 int DisplayBindingService::SetPaneConfigurations(_tls__SetPaneConfigurations *tls__SetPaneConfigurations, _tls__SetPaneConfigurationsResponse &tls__SetPaneConfigurationsResponse) 
 {
+#ifdef DEBUG
 	std::cout << __FUNCTION__ << std::endl;
+#endif
 	return SOAP_OK;
 }
 
 int DisplayBindingService::SetPaneConfiguration(_tls__SetPaneConfiguration *tls__SetPaneConfiguration, _tls__SetPaneConfigurationResponse &tls__SetPaneConfigurationResponse) 
 {
+#ifdef DEBUG
 	std::cout << __FUNCTION__ << std::endl;
+#endif
 	return SOAP_OK;
 }
 
 int DisplayBindingService::CreatePaneConfiguration(_tls__CreatePaneConfiguration *tls__CreatePaneConfiguration, _tls__CreatePaneConfigurationResponse &tls__CreatePaneConfigurationResponse) 
 {
+#ifdef DEBUG
 	std::cout << __FUNCTION__ << std::endl;
+#endif
 	return SOAP_OK;
 }
 
 int DisplayBindingService::DeletePaneConfiguration(_tls__DeletePaneConfiguration *tls__DeletePaneConfiguration, _tls__DeletePaneConfigurationResponse &tls__DeletePaneConfigurationResponse) 
 {
+#ifdef DEBUG
 	std::cout << __FUNCTION__ << std::endl;
+#endif
 	return SOAP_OK;
 }
 

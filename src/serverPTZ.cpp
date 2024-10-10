@@ -25,7 +25,9 @@
 /// Web service operation 'GetServiceCapabilities' (returns SOAP_OK or error code)
 int PTZBindingService::GetServiceCapabilities(_tptz__GetServiceCapabilities *tptz__GetServiceCapabilities, _tptz__GetServiceCapabilitiesResponse &tptz__GetServiceCapabilitiesResponse) 
 {
+#ifdef DEBUG
 	std::cout << __FUNCTION__ << std::endl;
+#endif
 	ServiceContext* ctx = (ServiceContext*)this->soap->user;
 	tptz__GetServiceCapabilitiesResponse.Capabilities = ctx->getPTZServiceCapabilities(this->soap);
 	return SOAP_OK;
@@ -34,84 +36,108 @@ int PTZBindingService::GetServiceCapabilities(_tptz__GetServiceCapabilities *tpt
 /// Web service operation 'GetConfigurations' (returns SOAP_OK or error code)
 int PTZBindingService::GetConfigurations(_tptz__GetConfigurations *tptz__GetConfigurations, _tptz__GetConfigurationsResponse &tptz__GetConfigurationsResponse) 
 {
+#ifdef DEBUG
 	std::cout << __FUNCTION__ << std::endl;
+#endif
 	return SOAP_OK;
 }
 
 /// Web service operation 'GetPresets' (returns SOAP_OK or error code)
 int PTZBindingService::GetPresets(_tptz__GetPresets *tptz__GetPresets, _tptz__GetPresetsResponse &tptz__GetPresetsResponse) 
 {
+#ifdef DEBUG
 	std::cout << __FUNCTION__ << std::endl;
+#endif
 	return SOAP_OK;
 }
 
 /// Web service operation 'SetPreset' (returns SOAP_OK or error code)
 int PTZBindingService::SetPreset(_tptz__SetPreset *tptz__SetPreset, _tptz__SetPresetResponse &tptz__SetPresetResponse) 
 {
+#ifdef DEBUG
 	std::cout << __FUNCTION__ << std::endl;
+#endif
 	return SOAP_OK;
 }
 
 /// Web service operation 'RemovePreset' (returns SOAP_OK or error code)
 int PTZBindingService::RemovePreset(_tptz__RemovePreset *tptz__RemovePreset, _tptz__RemovePresetResponse &tptz__RemovePresetResponse) 
 {
+#ifdef DEBUG
 	std::cout << __FUNCTION__ << std::endl;
+#endif
 	return SOAP_OK;
 }
 
 /// Web service operation 'GotoPreset' (returns SOAP_OK or error code)
 int PTZBindingService::GotoPreset(_tptz__GotoPreset *tptz__GotoPreset, _tptz__GotoPresetResponse &tptz__GotoPresetResponse) 
 {
+#ifdef DEBUG
 	std::cout << __FUNCTION__ << std::endl;
+#endif
 	return SOAP_OK;
 }
 
 /// Web service operation 'GetStatus' (returns SOAP_OK or error code)
 int PTZBindingService::GetStatus(_tptz__GetStatus *tptz__GetStatus, _tptz__GetStatusResponse &tptz__GetStatusResponse) 
 {
+#ifdef DEBUG
 	std::cout << __FUNCTION__ << std::endl;
+#endif
 	return SOAP_OK;
 }
 
 /// Web service operation 'GetConfiguration' (returns SOAP_OK or error code)
 int PTZBindingService::GetConfiguration(_tptz__GetConfiguration *tptz__GetConfiguration, _tptz__GetConfigurationResponse &tptz__GetConfigurationResponse) 
 {
+#ifdef DEBUG
 	std::cout << __FUNCTION__ << std::endl;
+#endif
 	return SOAP_OK;
 }
 
 /// Web service operation 'GetNodes' (returns SOAP_OK or error code)
 int PTZBindingService::GetNodes(_tptz__GetNodes *tptz__GetNodes, _tptz__GetNodesResponse &tptz__GetNodesResponse) 
 {
+#ifdef DEBUG
 	std::cout << __FUNCTION__ << std::endl;
+#endif
 	return SOAP_OK;
 }
 
 /// Web service operation 'GetNode' (returns SOAP_OK or error code)
 int PTZBindingService::GetNode(_tptz__GetNode *tptz__GetNode, _tptz__GetNodeResponse &tptz__GetNodeResponse) 
 {
+#ifdef DEBUG
 	std::cout << __FUNCTION__ << std::endl;
+#endif
 	return SOAP_OK;
 }
 
 /// Web service operation 'SetConfiguration' (returns SOAP_OK or error code)
 int PTZBindingService::SetConfiguration(_tptz__SetConfiguration *tptz__SetConfiguration, _tptz__SetConfigurationResponse &tptz__SetConfigurationResponse) 
 {
+#ifdef DEBUG
 	std::cout << __FUNCTION__ << std::endl;
+#endif
 	return SOAP_OK;
 }
 
 /// Web service operation 'GetConfigurationOptions' (returns SOAP_OK or error code)
 int PTZBindingService::GetConfigurationOptions(_tptz__GetConfigurationOptions *tptz__GetConfigurationOptions, _tptz__GetConfigurationOptionsResponse &tptz__GetConfigurationOptionsResponse) 
 {
+#ifdef DEBUG
 	std::cout << __FUNCTION__ << std::endl;
+#endif
 	return SOAP_OK;
 }
 
 /// Web service operation 'GotoHomePosition' (returns SOAP_OK or error code)
 int PTZBindingService::GotoHomePosition(_tptz__GotoHomePosition *tptz__GotoHomePosition, _tptz__GotoHomePositionResponse &tptz__GotoHomePositionResponse) 
 {
+#ifdef DEBUG
 	std::cout << __FUNCTION__ << std::endl;
+#endif
 	
 	int ret = SOAP_FAULT;
 	// TODO: send to appropriate pi based on profile
@@ -131,21 +157,27 @@ int PTZBindingService::GotoHomePosition(_tptz__GotoHomePosition *tptz__GotoHomeP
 /// Web service operation 'SetHomePosition' (returns SOAP_OK or error code)
 int PTZBindingService::SetHomePosition(_tptz__SetHomePosition *tptz__SetHomePosition, _tptz__SetHomePositionResponse &tptz__SetHomePositionResponse) 
 {
+#ifdef DEBUG
 	std::cout << __FUNCTION__ << std::endl;
+#endif
 	return SOAP_OK;
 }
 
 /// Web service operation 'ContinuousMove' (returns SOAP_OK or error code)
 int PTZBindingService::ContinuousMove(_tptz__ContinuousMove *tptz__ContinuousMove, _tptz__ContinuousMoveResponse &tptz__ContinuousMoveResponse) 
 {
+#ifdef DEBUG
 	std::cout << __FUNCTION__ << std::endl;
+#endif
 	return SOAP_OK;
 }
 
 /// Web service operation 'RelativeMove' (returns SOAP_OK or error code)
 int PTZBindingService::RelativeMove(_tptz__RelativeMove *tptz__RelativeMove, _tptz__RelativeMoveResponse &tptz__RelativeMoveResponse) 
 {
+#ifdef DEBUG
 	std::cout << __FUNCTION__ << std::endl;
+#endif
 	
 	int ret = SOAP_FAULT;
 	// TODO: send to appropriate pi based on profile
@@ -166,14 +198,18 @@ int PTZBindingService::RelativeMove(_tptz__RelativeMove *tptz__RelativeMove, _tp
 /// Web service operation 'SendAuxiliaryCommand' (returns SOAP_OK or error code)
 int PTZBindingService::SendAuxiliaryCommand(_tptz__SendAuxiliaryCommand *tptz__SendAuxiliaryCommand, _tptz__SendAuxiliaryCommandResponse &tptz__SendAuxiliaryCommandResponse) 
 {
+#ifdef DEBUG
 	std::cout << __FUNCTION__ << std::endl;
+#endif
 	return SOAP_OK;
 }
 
 /// Web service operation 'AbsoluteMove' (returns SOAP_OK or error code)
 int PTZBindingService::AbsoluteMove(_tptz__AbsoluteMove *tptz__AbsoluteMove, _tptz__AbsoluteMoveResponse &tptz__AbsoluteMoveResponse) 
 {
+#ifdef DEBUG
 	std::cout << __FUNCTION__ << std::endl;
+#endif
 
 	int ret = SOAP_FAULT;
 	// TODO: send to appropriate pi based on profile	
@@ -194,63 +230,81 @@ int PTZBindingService::AbsoluteMove(_tptz__AbsoluteMove *tptz__AbsoluteMove, _tp
 /// Web service operation 'Stop' (returns SOAP_OK or error code)
 int PTZBindingService::Stop(_tptz__Stop *tptz__Stop, _tptz__StopResponse &tptz__StopResponse) 
 {
+#ifdef DEBUG
 	std::cout << __FUNCTION__ << std::endl;
+#endif
 	return SOAP_OK;
 }
 
 /// Web service operation 'GetPresetTours' (returns SOAP_OK or error code)
 int PTZBindingService::GetPresetTours(_tptz__GetPresetTours *tptz__GetPresetTours, _tptz__GetPresetToursResponse &tptz__GetPresetToursResponse) 
 {
+#ifdef DEBUG
 	std::cout << __FUNCTION__ << std::endl;
+#endif
 	return SOAP_OK;
 }
 
 /// Web service operation 'GetPresetTour' (returns SOAP_OK or error code)
 int PTZBindingService::GetPresetTour(_tptz__GetPresetTour *tptz__GetPresetTour, _tptz__GetPresetTourResponse &tptz__GetPresetTourResponse) 
 {
+#ifdef DEBUG
 	std::cout << __FUNCTION__ << std::endl;
+#endif
 	return SOAP_OK;
 }
 
 /// Web service operation 'GetPresetTourOptions' (returns SOAP_OK or error code)
 int PTZBindingService::GetPresetTourOptions(_tptz__GetPresetTourOptions *tptz__GetPresetTourOptions, _tptz__GetPresetTourOptionsResponse &tptz__GetPresetTourOptionsResponse) 
 {
+#ifdef DEBUG
 	std::cout << __FUNCTION__ << std::endl;
+#endif
 	return SOAP_OK;
 }
 
 /// Web service operation 'CreatePresetTour' (returns SOAP_OK or error code)
 int PTZBindingService::CreatePresetTour(_tptz__CreatePresetTour *tptz__CreatePresetTour, _tptz__CreatePresetTourResponse &tptz__CreatePresetTourResponse) 
 {
+#ifdef DEBUG
 	std::cout << __FUNCTION__ << std::endl;
+#endif
 	return SOAP_OK;
 }
 
 /// Web service operation 'ModifyPresetTour' (returns SOAP_OK or error code)
 int PTZBindingService::ModifyPresetTour(_tptz__ModifyPresetTour *tptz__ModifyPresetTour, _tptz__ModifyPresetTourResponse &tptz__ModifyPresetTourResponse) 
 {
+#ifdef DEBUG
 	std::cout << __FUNCTION__ << std::endl;
+#endif
 	return SOAP_OK;
 }
 
 /// Web service operation 'OperatePresetTour' (returns SOAP_OK or error code)
 int PTZBindingService::OperatePresetTour(_tptz__OperatePresetTour *tptz__OperatePresetTour, _tptz__OperatePresetTourResponse &tptz__OperatePresetTourResponse) 
 {
+#ifdef DEBUG
 	std::cout << __FUNCTION__ << std::endl;
+#endif
 	return SOAP_OK;
 }
 
 /// Web service operation 'RemovePresetTour' (returns SOAP_OK or error code)
 int PTZBindingService::RemovePresetTour(_tptz__RemovePresetTour *tptz__RemovePresetTour, _tptz__RemovePresetTourResponse &tptz__RemovePresetTourResponse) 
 {
+#ifdef DEBUG
 	std::cout << __FUNCTION__ << std::endl;
+#endif
 	return SOAP_OK;
 }
 
 /// Web service operation 'GetCompatibleConfigurations' (returns SOAP_OK or error code)
 int PTZBindingService::GetCompatibleConfigurations(_tptz__GetCompatibleConfigurations *tptz__GetCompatibleConfigurations, _tptz__GetCompatibleConfigurationsResponse &tptz__GetCompatibleConfigurationsResponse) 
 {
+#ifdef DEBUG
 	std::cout << __FUNCTION__ << std::endl;
+#endif
 	return SOAP_OK;
 }
 

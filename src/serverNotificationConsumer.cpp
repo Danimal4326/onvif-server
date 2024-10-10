@@ -23,7 +23,9 @@
 
 int NotificationConsumerBindingService::Notify(_wsnt__Notify *wsnt__Notify) 
 {
+#ifdef DEBUG
 	std::cout << __FUNCTION__ << std::endl;
+#endif
 	
 	for (auto msg : wsnt__Notify->NotificationMessage)
 	{

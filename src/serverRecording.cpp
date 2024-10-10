@@ -22,7 +22,9 @@
 
 int RecordingBindingService::GetServiceCapabilities(_trc__GetServiceCapabilities *trc__GetServiceCapabilities, _trc__GetServiceCapabilitiesResponse &trc__GetServiceCapabilitiesResponse) 
 {
+#ifdef DEBUG
 	std::cout << __FUNCTION__ << std::endl;
+#endif
 	ServiceContext* ctx = (ServiceContext*)this->soap->user;
 	trc__GetServiceCapabilitiesResponse.Capabilities = ctx->getRecordingServiceCapabilities(this->soap);
 	return SOAP_OK;
@@ -30,19 +32,25 @@ int RecordingBindingService::GetServiceCapabilities(_trc__GetServiceCapabilities
 
 int RecordingBindingService::CreateRecording(_trc__CreateRecording *trc__CreateRecording, _trc__CreateRecordingResponse &trc__CreateRecordingResponse) 
 {
+#ifdef DEBUG
 	std::cout << __FUNCTION__ << std::endl;
+#endif
 	return SOAP_OK;
 }
 
 int RecordingBindingService::DeleteRecording(_trc__DeleteRecording *trc__DeleteRecording, _trc__DeleteRecordingResponse &trc__DeleteRecordingResponse) 
 {
+#ifdef DEBUG
 	std::cout << __FUNCTION__ << std::endl;
+#endif
 	return SOAP_OK;
 }
 
 int RecordingBindingService::GetRecordings(_trc__GetRecordings *trc__GetRecordings, _trc__GetRecordingsResponse &trc__GetRecordingsResponse) 
 {
+#ifdef DEBUG
 	std::cout << __FUNCTION__ << std::endl;
+#endif
 	
 	trc__GetRecordingsResponse.RecordingItem.push_back(soap_new_tt__GetRecordingsResponseItem(this->soap));
 
@@ -63,13 +71,17 @@ int RecordingBindingService::GetRecordings(_trc__GetRecordings *trc__GetRecordin
 
 int RecordingBindingService::SetRecordingConfiguration(_trc__SetRecordingConfiguration *trc__SetRecordingConfiguration, _trc__SetRecordingConfigurationResponse &trc__SetRecordingConfigurationResponse) 
 {
+#ifdef DEBUG
 	std::cout << __FUNCTION__ << std::endl;
+#endif
 	return SOAP_OK;
 }
 
 int RecordingBindingService::GetRecordingConfiguration(_trc__GetRecordingConfiguration *trc__GetRecordingConfiguration, _trc__GetRecordingConfigurationResponse &trc__GetRecordingConfigurationResponse) 
 {
+#ifdef DEBUG
 	std::cout << __FUNCTION__ << std::endl;
+#endif
 	
 	// TODO: implement this
 	// ServiceContext* ctx = (ServiceContext*)this->soap->user;
@@ -84,7 +96,9 @@ int RecordingBindingService::GetRecordingConfiguration(_trc__GetRecordingConfigu
 
 int RecordingBindingService::GetRecordingOptions(_trc__GetRecordingOptions *trc__GetRecordingOptions, _trc__GetRecordingOptionsResponse &trc__GetRecordingOptionsResponse) 
 {
+#ifdef DEBUG
 	std::cout << __FUNCTION__ << std::endl;
+#endif
 	trc__GetRecordingOptionsResponse.Options = soap_new_trc__RecordingOptions(this->soap);
 	trc__GetRecordingOptionsResponse.Options->Job = soap_new_trc__JobOptions(this->soap);
 	trc__GetRecordingOptionsResponse.Options->Track = soap_new_trc__TrackOptions(this->soap);
@@ -93,19 +107,25 @@ int RecordingBindingService::GetRecordingOptions(_trc__GetRecordingOptions *trc_
 
 int RecordingBindingService::CreateTrack(_trc__CreateTrack *trc__CreateTrack, _trc__CreateTrackResponse &trc__CreateTrackResponse) 
 {
+#ifdef DEBUG
 	std::cout << __FUNCTION__ << std::endl;
+#endif
 	return SOAP_OK;
 }
 
 int RecordingBindingService::DeleteTrack(_trc__DeleteTrack *trc__DeleteTrack, _trc__DeleteTrackResponse &trc__DeleteTrackResponse) 
 {
+#ifdef DEBUG
 	std::cout << __FUNCTION__ << std::endl;
+#endif
 	return SOAP_OK;
 }
 
 int RecordingBindingService::GetTrackConfiguration(_trc__GetTrackConfiguration *trc__GetTrackConfiguration, _trc__GetTrackConfigurationResponse &trc__GetTrackConfigurationResponse) 
 {
+#ifdef DEBUG
 	std::cout << __FUNCTION__ << std::endl;
+#endif
 
 	// TODO: implement this	
 	// ServiceContext* ctx = (ServiceContext*)this->soap->user;
@@ -120,25 +140,33 @@ int RecordingBindingService::GetTrackConfiguration(_trc__GetTrackConfiguration *
 
 int RecordingBindingService::SetTrackConfiguration(_trc__SetTrackConfiguration *trc__SetTrackConfiguration, _trc__SetTrackConfigurationResponse &trc__SetTrackConfigurationResponse) 
 {
+#ifdef DEBUG
 	std::cout << __FUNCTION__ << std::endl;
+#endif
 	return SOAP_OK;
 }
 
 int RecordingBindingService::CreateRecordingJob(_trc__CreateRecordingJob *trc__CreateRecordingJob, _trc__CreateRecordingJobResponse &trc__CreateRecordingJobResponse) 
 {
+#ifdef DEBUG
 	std::cout << __FUNCTION__ << std::endl;
+#endif
 	return SOAP_OK;
 }
 
 int RecordingBindingService::DeleteRecordingJob(_trc__DeleteRecordingJob *trc__DeleteRecordingJob, _trc__DeleteRecordingJobResponse &trc__DeleteRecordingJobResponse) 
 {
+#ifdef DEBUG
 	std::cout << __FUNCTION__ << std::endl;
+#endif
 	return SOAP_OK;
 }
 
 int RecordingBindingService::GetRecordingJobs(_trc__GetRecordingJobs *trc__GetRecordingJobs, _trc__GetRecordingJobsResponse &trc__GetRecordingJobsResponse) 
 {
+#ifdef DEBUG
 	std::cout << __FUNCTION__ << std::endl;
+#endif
 
 	// TODO: implement this	
 	// ServiceContext* ctx = (ServiceContext*)this->soap->user;
@@ -155,13 +183,17 @@ int RecordingBindingService::GetRecordingJobs(_trc__GetRecordingJobs *trc__GetRe
 
 int RecordingBindingService::SetRecordingJobConfiguration(_trc__SetRecordingJobConfiguration *trc__SetRecordingJobConfiguration, _trc__SetRecordingJobConfigurationResponse &trc__SetRecordingJobConfigurationResponse) 
 {
+#ifdef DEBUG
 	std::cout << __FUNCTION__ << std::endl;
+#endif
 	return SOAP_OK;
 }
 
 int RecordingBindingService::GetRecordingJobConfiguration(_trc__GetRecordingJobConfiguration *trc__GetRecordingJobConfiguration, _trc__GetRecordingJobConfigurationResponse &trc__GetRecordingJobConfigurationResponse) 
 {
+#ifdef DEBUG
 	std::cout << __FUNCTION__ << std::endl;
+#endif
 
 	// TODO: implement this	
 	// ServiceContext* ctx = (ServiceContext*)this->soap->user;
@@ -176,30 +208,40 @@ int RecordingBindingService::GetRecordingJobConfiguration(_trc__GetRecordingJobC
 
 int RecordingBindingService::SetRecordingJobMode(_trc__SetRecordingJobMode *trc__SetRecordingJobMode, _trc__SetRecordingJobModeResponse &trc__SetRecordingJobModeResponse) 
 {
+#ifdef DEBUG
 	std::cout << __FUNCTION__ << std::endl;
+#endif
 	return SOAP_OK;
 }
 
 int RecordingBindingService::GetRecordingJobState(_trc__GetRecordingJobState *trc__GetRecordingJobState, _trc__GetRecordingJobStateResponse &trc__GetRecordingJobStateResponse) 
 {
+#ifdef DEBUG
 	std::cout << __FUNCTION__ << std::endl;
+#endif
 	return SOAP_OK;
 }
 
 int RecordingBindingService::ExportRecordedData(_trc__ExportRecordedData *trc__ExportRecordedData, _trc__ExportRecordedDataResponse &trc__ExportRecordedDataResponse) 
 {
+#ifdef DEBUG
 	std::cout << __FUNCTION__ << std::endl;
+#endif
 	return SOAP_OK;
 }
 
 int RecordingBindingService::StopExportRecordedData(_trc__StopExportRecordedData *trc__StopExportRecordedData, _trc__StopExportRecordedDataResponse &trc__StopExportRecordedDataResponse) 
 {
+#ifdef DEBUG
 	std::cout << __FUNCTION__ << std::endl;
+#endif
 	return SOAP_OK;
 }
 
 int RecordingBindingService::GetExportRecordedDataState(_trc__GetExportRecordedDataState *trc__GetExportRecordedDataState, _trc__GetExportRecordedDataStateResponse &trc__GetExportRecordedDataStateResponse) 
 {
+#ifdef DEBUG
 	std::cout << __FUNCTION__ << std::endl;
+#endif
 	return SOAP_OK;
 }
