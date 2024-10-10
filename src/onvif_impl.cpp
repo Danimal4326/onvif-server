@@ -359,7 +359,6 @@ tt__VideoEncoderConfiguration *ServiceContext::getVideoEncoderCfg(struct soap *s
 	{
 		cfg->Resolution = soap_new_req_tt__VideoResolution(soap, width, height);
 		float frameRate = getFrameRate(token);
-		std::cout << frameRate << std::endl;
 		cfg->RateControl = soap_new_req_tt__VideoRateControl(soap, frameRate, 0, 0);
 		cfg->Multicast = soap_new_tt__MulticastConfiguration(soap);
 		cfg->Multicast->Address = soap_new_tt__IPAddress(soap);
