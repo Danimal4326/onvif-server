@@ -40,13 +40,14 @@ class Device
 {
 	public:
 		Device() {}
-		Device(const std::string &name, const std::string &rtsp_url, const std::string &snapshot_url, uint32_t width, uint32_t height, float framerate, uint32_t pixformat) 
+		Device(const std::string &name, const std::string &rtsp_url, const std::string &snapshot_url, uint32_t width, uint32_t height, float framerate, uint32_t bitrate, uint32_t pixformat) 
 		 : m_name(name), 
 		   m_rtsp_url(rtsp_url),
                    m_snapshot_url(snapshot_url),
 		   m_width(width),
 		   m_height(height),
                    m_framerate(framerate),
+                   m_bitrate(bitrate),
 		   m_pixformat(pixformat) {}
 		std::string m_name;
 		std::string m_rtsp_url;
@@ -54,6 +55,7 @@ class Device
 		uint32_t m_width;
 		uint32_t m_height;
                 float m_framerate;
+		uint32_t m_bitrate;
 		uint32_t m_pixformat;
 };
 
@@ -70,6 +72,7 @@ public:
 	// V4L2 access
 	int                getFormat        (const std::string &device, int& width, int& height, int& format);
 	float              getFrameRate     (const std::string &device);
+	int                getBitRate       (const std::string &device);
 	int                getCtrlValue     (const std::string &device, int idctrl);
 	void               setCtrlValue     (const std::string &device, int idctrl, int value);
 	std::pair<int,int> getCtrlRange     (const std::string &device, int idctrl);
@@ -119,7 +122,7 @@ public:
 	int         m_isdst;
         std::string m_manufacturer = "Onvif";
         std::string m_model = "Camera";
-        std::string m_hardwareid = "1";
+        std::string m_hardwareid = "1.0.0";
         std::string m_firmwareversion = "1.0.0";
         std::string m_serialnumber = "0.0.0";
 };

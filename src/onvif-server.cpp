@@ -172,7 +172,8 @@ int main(int argc, char* argv[])
         std::string snapshot_url = "undef";
         std::uint32_t width = 640;
         std::uint32_t height = 480;
-        float frameRate = 25.0;
+        float frameRate = 30.0;
+        std::uint32_t bitRate = 600;
         std::string type = "H264";
 
 
@@ -199,6 +200,9 @@ int main(int argc, char* argv[])
             if (device["framerate"].IsDefined())
 		frameRate = device["framerate"].as<float>();
 
+            if (device["bitrate"].IsDefined())
+		bitRate = device["bitrate"].as<std::uint32_t>();
+
             if (device["type"].IsDefined())
                 type = device["type"].as<std::string>();
 
@@ -209,6 +213,7 @@ int main(int argc, char* argv[])
             std::cout << "  Width: " << width << std::endl;
             std::cout << "  Height: " << height << std::endl;
             std::cout << "  Frame Rate: " << frameRate << std::endl;
+            std::cout << "  Bit Rate: " << bitRate << std::endl;
             std::cout << "  Type: " << type << std::endl;
 
             int format = V4L2_PIX_FMT_H264;
@@ -229,7 +234,7 @@ int main(int argc, char* argv[])
                 format = V4L2_PIX_FMT_MPEG4;
             }
 
-            deviceCtx.m_devices[token] = (Device(name, rtsp_url, snapshot_url, width, height, frameRate, format));
+            deviceCtx.m_devices[token] = (Device(name, rtsp_url, snapshot_url, width, height, frameRate, bitRate, format));
 
         }
 

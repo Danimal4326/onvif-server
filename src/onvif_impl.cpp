@@ -192,6 +192,12 @@ float ServiceContext::getFrameRate(const std::string &device)
 	return m_devices[device].m_framerate;
 }
 
+int ServiceContext::getBitRate(const std::string &device)
+{
+	// TODO: implement this
+	return m_devices[device].m_bitrate;
+}
+
 int ServiceContext::getCtrlValue(const std::string &device, int idctrl)
 {
 	int value = 0;
@@ -351,7 +357,7 @@ tt__VideoEncoderConfiguration *ServiceContext::getVideoEncoderCfg(struct soap *s
 	tt__VideoEncoderConfiguration *cfg = soap_new_tt__VideoEncoderConfiguration(soap);
 	cfg->Name = token;
 	cfg->token = token;
-	cfg->Quality = 50.0; 
+	cfg->Quality = 5;
 	int width;
 	int height;
 	int format;
@@ -359,17 +365,19 @@ tt__VideoEncoderConfiguration *ServiceContext::getVideoEncoderCfg(struct soap *s
 	{
 		cfg->Resolution = soap_new_req_tt__VideoResolution(soap, width, height);
 		float frameRate = getFrameRate(token);
-		cfg->RateControl = soap_new_req_tt__VideoRateControl(soap, frameRate, 0, 0);
+		int bitRate = getBitRate(token);
+		cfg->RateControl = soap_new_req_tt__VideoRateControl(soap, frameRate, 1, bitRate);
 		cfg->Multicast = soap_new_tt__MulticastConfiguration(soap);
 		cfg->Multicast->Address = soap_new_tt__IPAddress(soap);
 		cfg->SessionTimeout = "PT10S";
 		if (format == V4L2_PIX_FMT_H264)
 		{
 			cfg->Encoding = tt__VideoEncoding__H264;
-			cfg->RateControl->BitrateLimit = getCtrlValue(token, V4L2_CID_MPEG_VIDEO_BITRATE);
+			//cfg->RateControl->BitrateLimit = getCtrlValue(token, V4L2_CID_MPEG_VIDEO_BITRATE);
 			cfg->H264 = soap_new_tt__H264Configuration(soap);
 			cfg->H264->H264Profile = getH264Profile(getCtrlValue(token, V4L2_CID_MPEG_VIDEO_H264_PROFILE));
-			cfg->H264->GovLength = getCtrlValue(token, V4L2_CID_MPEG_VIDEO_H264_I_PERIOD);
+			//cfg->H264->GovLength = getCtrlValue(token, V4L2_CID_MPEG_VIDEO_H264_I_PERIOD);
+			cfg->H264->GovLength = frameRate;
 		}
 		else if (format == V4L2_PIX_FMT_JPEG)
 		{

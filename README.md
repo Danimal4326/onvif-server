@@ -36,6 +36,7 @@ server:
     width: 1280
     height: 720
     framerate: 30
+    bitrate: 1600
 ```
 
 `onvif_server -c config.yaml`
